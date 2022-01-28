@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.txs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-cli serve --mode=development --env development --open --hot",
+    "build": "webpack --mode=production --env production --progress",
+    "lint": "eslint './src/**/*.{ts,tsx}' --fix",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",

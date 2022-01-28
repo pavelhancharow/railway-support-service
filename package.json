@@ -2,7 +2,7 @@
   "name": "railway-support-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.txs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/pavelhancharow/railway-support-system/issues"
   },
-  "homepage": "https://github.com/pavelhancharow/railway-support-system#readme"
+  "homepage": "https://github.com/pavelhancharow/railway-support-system#readme",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
 }

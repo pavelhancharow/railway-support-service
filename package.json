@@ -1,0 +1,20 @@
+{
+  "name": "railway-support-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavelhancharow/railway-support-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavelhancharow/railway-support-system/issues"
+  },
+  "homepage": "https://github.com/pavelhancharow/railway-support-system#readme"
+}

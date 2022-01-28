@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack, { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
@@ -13,7 +15,9 @@ const webpackConfig = (env: any): Configuration => ({
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'build.js',
+    filename: '[name].[fullhash].js',
+    assetModuleFilename: 'assets/[hash][ext]',
+    clean: true,
   },
   module: {
     rules: [
@@ -25,11 +29,38 @@ const webpackConfig = (env: any): Configuration => ({
         },
         exclude: /dist/,
       },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          env.development ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          env.development ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
+      title: env.development ? 'Development' : 'Railway Support Service',
       template: './public/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[fullhash].css',
     }),
     new webpack.DefinePlugin({
       'process.env.PRODUCTION': env.production || !env.development,
@@ -41,6 +72,7 @@ const webpackConfig = (env: any): Configuration => ({
         files: './src/**/*.{ts,tsx,js,jsx}',
       },
     }),
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
 });
 

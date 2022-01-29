@@ -1,5 +1,10 @@
 import { FC } from 'react';
+import { Header } from 'src/components/Header';
+import { Main } from 'src/components/Main';
 
-const App: FC = (): JSX.Element => <h1>Hello World</h1>;
-
-export default App;
+export const App: FC = (): JSX.Element => (
+  <>
+    <Header />
+    <Main />
+  </>
+);

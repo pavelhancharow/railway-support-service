@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import { IForm } from 'src/models/IForm';
-import { DirectionBox } from 'src/shared/MainFormDirection';
+import { DirectionBox } from 'src/shared/FormDirection';
 
 interface FormDirectionProps {
   direction: string;

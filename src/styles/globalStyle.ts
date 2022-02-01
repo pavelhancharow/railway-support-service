@@ -30,7 +30,8 @@ a,
 button,
 input,
 label,
-select {
+select,
+fieldset {
   border: none;
   border-style: none;
   background-color: transparent;

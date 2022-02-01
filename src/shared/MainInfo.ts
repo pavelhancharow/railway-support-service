@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import wallpaper from '../assets/img/ice-wallpaper.jpeg';
 import { styleVars } from '../styles/styleVars';
 
-const { grey } = styleVars;
+const { grey, lightGrey } = styleVars;
 
 export const MainInfoBox = styled.div`
   display: flex;
@@ -25,6 +25,7 @@ export const MainInfoDescription = styled.div`
   justify-content: center;
   width: 30%;
   padding: 0 1rem;
+  background-color: ${lightGrey};
 `;
 
 export const MainInfoQuote = styled.q`

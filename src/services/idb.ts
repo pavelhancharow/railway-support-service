@@ -24,4 +24,4 @@ class MySubClassedDexie extends Dexie {
   }
 }
 
-export const idb = new MySubClassedDexie('myDatabase');
+export const idb = new MySubClassedDexie('RailwayDB');

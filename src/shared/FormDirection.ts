@@ -5,7 +5,6 @@ const { light, darkGrey, primary } = styleVars;
 
 export const DirectionBox = styled.div`
   width: calc(50% - 73px);
-  margin: 0 10px;
   padding-bottom: 20px;
   position: relative;
 

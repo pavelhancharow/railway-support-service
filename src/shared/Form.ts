@@ -21,7 +21,14 @@ export const FormBox = styled.form`
   }
 `;
 
-export const FormFieldset = styled.fieldset`
+interface IFieldset {
+  $maxWidth?: string;
+}
+
+export const FormFieldset = styled.fieldset<IFieldset>`
   display: flex;
   justify-content: space-between;
+  padding: 0 10px;
+  max-width: ${(props) => props.$maxWidth || 'auto'};
+  cursor: auto;
 `;

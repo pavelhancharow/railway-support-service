@@ -18,7 +18,7 @@ export const FormDirection: FC<FormDirectionProps> = ({
   registerDir,
   register,
   errors,
-}) => {
+}): JSX.Element => {
   return (
     <DirectionBox>
       <label htmlFor={direction}>{direction}</label>

@@ -6,4 +6,5 @@ export const styleVars = {
   grey: '#4f4f4f',
   lightGrey: '#f5f5f5',
   darkGrey: '#878c96',
+  red: '#c00000',
 };

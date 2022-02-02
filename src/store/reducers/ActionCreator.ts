@@ -3,6 +3,7 @@ import { RailwayDB } from 'src/db/RailwayDB';
 import { directionsTable } from 'src/entities/DirectionsTable';
 import { routesTable } from 'src/entities/RoutesTable';
 import { trainsTable } from 'src/entities/TrainsTable';
+import { IForm } from 'src/models/IForm';
 
 const { routes, trains, directions } = RailwayDB;
 
@@ -25,6 +26,19 @@ export const fetchRailway = createAsyncThunk(
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(`Failed to load railway db: ${error}`);
+    }
+  }
+);
+
+export const getFormData = createAsyncThunk(
+  'railway/getFormData',
+  async (formData: IForm, thunkAPI) => {
+    try {
+      return formData;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        `Failed to load route information: ${error}`
+      );
     }
   }
 );

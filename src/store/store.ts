@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import routeReducer from './reducers/RouteSlice';
+import railwayReducer from './reducers/RailwaySlice';
 
 const rootReducer = combineReducers({
-  routeReducer,
+  railwayReducer,
 });
 
 export const setupStore = () => {

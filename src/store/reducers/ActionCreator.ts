@@ -32,13 +32,10 @@ export const fetchRailway = createAsyncThunk(
 
 export const getFormData = createAsyncThunk(
   'railway/getFormData',
-  async (formData: IForm, thunkAPI) => {
-    try {
-      return formData;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        `Failed to load route information: ${error}`
-      );
-    }
-  }
+  (formData: IForm) => formData
+);
+
+export const toHomePage = createAsyncThunk(
+  'railway/toHomePage',
+  (_, thunkAPI) => null
 );

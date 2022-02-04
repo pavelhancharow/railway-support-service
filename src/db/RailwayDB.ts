@@ -1,5 +1,9 @@
 export const RailwayDB = {
-  trains: ['passenger', 'express', 'freight'],
+  trains: {
+    passenger: 0.1,
+    express: 0.2,
+    freight: 0.25,
+  },
   directions: ['from', 'to'],
   routes: [
     {
@@ -8,38 +12,10 @@ export const RailwayDB = {
         {
           city: 'moscow',
           distance: 800,
-          train: [
-            {
-              type: 'passanger',
-              price: 80,
-            },
-            {
-              type: 'express',
-              price: 160,
-            },
-            {
-              type: 'freight',
-              price: 200,
-            },
-          ],
         },
         {
           city: 'berlin',
           distance: 1100,
-          train: [
-            {
-              type: 'passanger',
-              price: 110,
-            },
-            {
-              type: 'express',
-              price: 220,
-            },
-            {
-              type: 'freight',
-              price: 260,
-            },
-          ],
         },
       ],
     },
@@ -49,38 +25,10 @@ export const RailwayDB = {
         {
           city: 'minsk',
           distance: 800,
-          train: [
-            {
-              type: 'passanger',
-              price: 80,
-            },
-            {
-              type: 'express',
-              price: 160,
-            },
-            {
-              type: 'freight',
-              price: 200,
-            },
-          ],
         },
         {
           city: 'berlin',
           distance: 1900,
-          train: [
-            {
-              type: 'passanger',
-              price: 190,
-            },
-            {
-              type: 'express',
-              price: 280,
-            },
-            {
-              type: 'freight',
-              price: 320,
-            },
-          ],
         },
       ],
     },
@@ -90,38 +38,10 @@ export const RailwayDB = {
         {
           city: 'minsk',
           distance: 1100,
-          train: [
-            {
-              type: 'passanger',
-              price: 110,
-            },
-            {
-              type: 'express',
-              price: 220,
-            },
-            {
-              type: 'freight',
-              price: 260,
-            },
-          ],
         },
         {
           city: 'moscow',
           distance: 1900,
-          train: [
-            {
-              type: 'passanger',
-              price: 190,
-            },
-            {
-              type: 'express',
-              price: 280,
-            },
-            {
-              type: 'freight',
-              price: 320,
-            },
-          ],
         },
       ],
     },

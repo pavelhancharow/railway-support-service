@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IForm } from 'src/models/IForm';
 import { IRailway } from 'src/models/IRailway';
-import { fetchRailway, getFormData } from './ActionCreator';
+import { fetchRailway, getFormData, toHomePage } from './ActionCreator';
 
 interface RailwayState {
   railway: IRailway;
@@ -42,11 +42,10 @@ export const RailwaySlice = createSlice({
     },
     [getFormData.fulfilled.type]: (state, action: PayloadAction<IForm>) => {
       state.formTicket = true;
-      state.error = '';
       state.form = action.payload;
     },
-    [getFormData.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
+    [toHomePage.fulfilled.type]: (state) => {
+      state.formTicket = false;
     },
   },
 });

@@ -4,18 +4,16 @@ export interface IRoute {
   to: {
     city: string;
     distance: number;
-    train: {
-      type: string;
-      price: number;
-    }[];
   }[];
 }
 
-export type ITrainType = string;
+export interface ITrainTypes {
+  [key: string]: number;
+}
 
 export interface ITrain {
   id?: number;
-  types: ITrainType[];
+  types: ITrainTypes;
 }
 
 export type IDirectionType = string;
@@ -27,6 +25,6 @@ export interface IDirection {
 
 export interface IRailway {
   directions?: IDirectionType[];
-  trains?: ITrainType[];
+  trains?: ITrainTypes;
   routes?: IRoute[];
 }

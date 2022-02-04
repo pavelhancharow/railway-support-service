@@ -1,11 +1,11 @@
-import { ITrainType } from 'src/models/IRailway';
+import { ITrainTypes } from 'src/models/IRailway';
 import { IRailwayDataBase, RailwayDataBase } from '../db/RailwayDataBase';
 
 class TrainsTable
   extends RailwayDataBase
-  implements IRailwayDataBase<ITrainType[]>
+  implements IRailwayDataBase<ITrainTypes>
 {
-  async initTable(db: ITrainType[]) {
+  async initTable(db: ITrainTypes) {
     try {
       if ((await this.table('trains').toArray()).length) return;
 
@@ -17,4 +17,5 @@ class TrainsTable
     }
   }
 }
+
 export const trainsTable = new TrainsTable('RailwayDB');

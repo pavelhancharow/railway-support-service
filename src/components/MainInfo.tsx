@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useAppSelector } from 'src/hooks/redux';
 import {
   MainInfoBox,
   MainInfoBild,
@@ -8,8 +9,10 @@ import {
 } from 'src/shared/MainInfo';
 
 export const MainInfo: FC = (): JSX.Element => {
+  const { formTicket } = useAppSelector(({ railwayReducer }) => railwayReducer);
+
   return (
-    <MainInfoBox>
+    <MainInfoBox $shadow={formTicket || false}>
       <MainInfoBild />
       <MainInfoDescription>
         <MainInfoQuote>

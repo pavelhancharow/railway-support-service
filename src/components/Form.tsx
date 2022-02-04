@@ -9,19 +9,13 @@ import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { getFormData } from 'src/store/reducers/ActionCreator';
 
 export const Form: FC = (): JSX.Element => {
-  const { directions, trains } = useAppSelector(
-    ({ railwayReducer }) => railwayReducer.railway
-  );
+  const { railway } = useAppSelector((state) => state.railwayReducer);
+  const { register, handleSubmit, formState } = useForm<IForm>();
+  const { directions, trains } = railway;
   const dispatch = useAppDispatch();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IForm>();
-
-  const onSubmit: SubmitHandler<IForm> = async (formData) => {
-    await dispatch(getFormData(formData));
+  const onSubmit: SubmitHandler<IForm> = (formData) => {
+    dispatch(getFormData(formData));
   };
 
   return (
@@ -33,21 +27,22 @@ export const Form: FC = (): JSX.Element => {
             key={direction}
             direction={direction}
             registerDir={direction === 'from' ? 'from' : 'to'}
-            errors={errors}
+            errors={formState.errors}
             register={register}
           />
         ))}
       </FormFieldset>
       <h3>Choose the train</h3>
       <FormFieldset $maxWidth="45%">
-        {trains?.map((train, i) => (
-          <FormTrains
-            key={train}
-            value={train}
-            register={register}
-            checked={i !== 0 ? false : true}
-          />
-        ))}
+        {trains &&
+          Object.keys(trains).map((train, i) => (
+            <FormTrains
+              key={train}
+              value={train}
+              register={register}
+              checked={i !== 0 ? false : true}
+            />
+          ))}
       </FormFieldset>
       <MyButton type="submit">Search</MyButton>
     </FormBox>

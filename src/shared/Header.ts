@@ -9,6 +9,10 @@ export const HeaderBox = styled.header`
   justify-content: space-between;
   padding: 10px 15px;
   background-color: ${primary};
+
+  picture {
+    cursor: pointer;
+  }
 `;
 
 export const HeaderImg = styled.img.attrs({

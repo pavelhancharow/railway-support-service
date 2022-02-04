@@ -4,9 +4,15 @@ import { styleVars } from '../styles/styleVars';
 
 const { grey, lightGrey } = styleVars;
 
-export const MainInfoBox = styled.div`
+interface IMainInfoBox {
+  $shadow?: boolean;
+}
+
+export const MainInfoBox = styled.div<IMainInfoBox>`
+  position: relative;
   display: flex;
   width: 100%;
+  box-shadow: ${({ $shadow }) => $shadow && '0px 4px 8px rgb(44 101 77 / 8%)'};
 `;
 
 export const MainInfoBild = styled.div`

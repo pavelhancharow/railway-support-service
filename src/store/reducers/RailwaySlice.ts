@@ -1,26 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IForm } from 'src/models/IForm';
-import { IRailway } from 'src/models/IRailway';
-import { fetchRailway, getFormData, toHomePage } from './ActionCreator';
+import { IRailway, IRoute } from 'src/models/IRailway';
+import { ITicket } from 'src/models/ITicket';
+import {
+  addToRailway,
+  fetchRailway,
+  getFormData,
+  toHomePage,
+} from '../actionCreators/RailwayCreator';
 
 interface RailwayState {
   railway: IRailway;
   isLoading: boolean;
   error: string;
-  form: IForm;
   formTicket: boolean;
+  ticket: ITicket;
 }
 
 const initialState: RailwayState = {
   railway: {},
   isLoading: false,
   error: '',
-  form: {
-    from: '',
-    to: '',
-    train: '',
-  },
   formTicket: false,
+  ticket: { from: '', to: '', train: '', price: NaN, distance: NaN },
 };
 
 export const RailwaySlice = createSlice({
@@ -40,12 +41,38 @@ export const RailwaySlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    [getFormData.fulfilled.type]: (state, action: PayloadAction<IForm>) => {
+    [addToRailway.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [addToRailway.fulfilled.type]: (state, action: PayloadAction<IRoute[]>) => {
+      state.isLoading = false;
+      state.error = '';
+      state.railway.routes = action.payload;
+    },
+    [addToRailway.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [getFormData.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [getFormData.fulfilled.type]: (state, action: PayloadAction<ITicket>) => {
+      state.isLoading = false;
+      state.error = '';
       state.formTicket = true;
-      state.form = action.payload;
+      state.ticket = action.payload;
+    },
+    [getFormData.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [toHomePage.pending.type]: (state) => {
+      state.isLoading = true;
     },
     [toHomePage.fulfilled.type]: (state) => {
+      state.isLoading = false;
       state.formTicket = false;
+      state.error = '';
     },
   },
 });

@@ -1,5 +1,5 @@
 import Dexie, { Table } from 'dexie';
-import { IDirection, IRoute, ITrain } from '../models/IRailway';
+import { IAdmin, IDirection, IRoute, ITrain } from '../models/IRailway';
 
 export interface IRailwayDataBase<T> {
   initTable: (db: T) => void;
@@ -9,6 +9,7 @@ export class RailwayDataBase extends Dexie {
   routes!: Table<IRoute>;
   trains!: Table<ITrain>;
   directions!: Table<IDirection>;
+  admin!: Table<IAdmin>;
 
   constructor(dbName: string) {
     super(dbName);
@@ -17,6 +18,7 @@ export class RailwayDataBase extends Dexie {
       routes: '++id, &from, to',
       trains: '++id, &types',
       directions: '++id, &types',
+      admin: '++id, &administrator',
     });
   }
 }

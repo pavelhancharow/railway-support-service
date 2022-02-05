@@ -1,4 +1,5 @@
 export const RailwayDB = {
+  administrator: false,
   trains: {
     passenger: 0.1,
     express: 0.2,

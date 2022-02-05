@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import logo from '../assets/img/logo.png';
 import { styleVars } from '../styles/styleVars';
+import { MyBtn } from './UI/MyButton';
 
 const { body, dark, primary } = styleVars;
 
 export const HeaderBox = styled.header`
   display: flex;
-  justify-content: space-between;
   padding: 10px 15px;
   background-color: ${primary};
 
@@ -25,12 +25,22 @@ export const HeaderImg = styled.img.attrs({
   box-shadow: 0px 5px 10px 30px ${body};
 `;
 
-export const HeaderBtn = styled.button`
-  font-size: 1.3rem;
-  color: ${body};
-  transition: color 0.3s;
+export const HeaderBtns = styled.div`
+  display: flex;
+  margin-left: auto;
 
-  &:hover {
-    color: ${dark};
+  ${MyBtn} {
+    margin: 0;
+    margin-left: 40px;
+    max-width: none;
+    padding: 0;
+    background-color: transparent;
+    font-size: 1.3rem;
+    color: ${body};
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${dark};
+    }
   }
 `;

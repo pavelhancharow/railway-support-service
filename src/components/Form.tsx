@@ -3,19 +3,21 @@ import { FormBox, FormFieldset } from 'src/shared/Form';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MyButton } from './UI/MyButton';
 import { FormDirection } from './FormDirection';
-import { IForm } from 'src/models/IForm';
+import { IForm } from 'src/models/IForms';
 import { FormTrains } from './FormTrains';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { getFormData } from 'src/store/reducers/ActionCreator';
+import { getFormData } from 'src/store/actionCreators/RailwayCreator';
 
 export const Form: FC = (): JSX.Element => {
   const { railway } = useAppSelector((state) => state.railwayReducer);
   const { register, handleSubmit, formState } = useForm<IForm>();
-  const { directions, trains } = railway;
+  const { directions, trains, routes } = railway;
   const dispatch = useAppDispatch();
 
-  const onSubmit: SubmitHandler<IForm> = (formData) => {
-    dispatch(getFormData(formData));
+  const onSubmit: SubmitHandler<IForm> = async (formData) => {
+    if (routes && trains) {
+      await dispatch(getFormData([formData, routes, trains]));
+    }
   };
 
   return (

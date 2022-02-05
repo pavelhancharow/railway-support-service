@@ -28,3 +28,10 @@ export interface IRailway {
   trains?: ITrainTypes;
   routes?: IRoute[];
 }
+
+export type IAdminType = boolean;
+
+export interface IAdmin {
+  id?: number;
+  administrator: IAdminType;
+}

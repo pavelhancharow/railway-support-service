@@ -11,8 +11,11 @@ export const App: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchRailway());
-    dispatch(getAdmin());
+    async function fetchData() {
+      await dispatch(fetchRailway());
+      await dispatch(getAdmin());
+    }
+    fetchData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

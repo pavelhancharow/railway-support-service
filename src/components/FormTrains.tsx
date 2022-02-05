@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { IForm } from 'src/models/IForm';
+import { IForm } from 'src/models/IForms';
 import { TrainsBox } from 'src/shared/FormTrains';
 
 interface FormTrainsProps {

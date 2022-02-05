@@ -1,13 +1,11 @@
 import { FC } from 'react';
-import { useFindRoute } from 'src/hooks/useFindRoute';
+import { useAppSelector } from 'src/hooks/redux';
 import { TicketInfoBox } from 'src/shared/TicketInfo';
 
 export const TicketInfo: FC = (): JSX.Element => {
-  const ticket = useFindRoute();
-
-  if (!ticket) return <h1>Route not found</h1>;
-
-  const { from, to, distance, price, train } = ticket;
+  const { from, to, distance, train, price } = useAppSelector(
+    (state) => state.railwayReducer.ticket
+  );
 
   return (
     <TicketInfoBox>

@@ -16,6 +16,8 @@ export const Form: FC = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IForm> = async (formData) => {
     if (routes && trains) {
+      formData.from = formData.from.toLowerCase();
+      formData.to = formData.to.toLowerCase();
       await dispatch(getFormData([formData, routes, trains]));
     }
   };

@@ -14,6 +14,8 @@ export const Route: FC = (): JSX.Element => {
   const { register, handleSubmit, formState, reset } = useForm<IAddRoute>();
 
   const onSubmit = async (data: IAddRoute) => {
+    data.from = data.from.toLowerCase();
+    data.to = data.to.toLowerCase();
     await dispatch(addToRailway(data));
   };
 

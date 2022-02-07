@@ -82,6 +82,21 @@ export const getFormData = createAsyncThunk(
     }
   }
 );
+export const setDuration = createAsyncThunk(
+  'setDuration',
+  async (duration: string, thunkAPI) => {
+    try {
+      return { duration };
+    } catch (error) {
+      return await new Promise((_, reject) => {
+        setTimeout(
+          () => reject(thunkAPI.rejectWithValue(`${(error as Error).message}`)),
+          1000
+        );
+      });
+    }
+  }
+);
 
 export const toHomePage = createAsyncThunk(
   'toHome',

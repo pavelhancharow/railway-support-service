@@ -10,6 +10,7 @@ export function createTicket(res: [IForm, IRoute[], ITrainTypes]) {
     train: '',
     price: NaN,
     distance: NaN,
+    duration: '-',
   };
 
   const isFromCity = routes.find((route) => route.from === form.from);
@@ -26,7 +27,7 @@ export function createTicket(res: [IForm, IRoute[], ITrainTypes]) {
   for (const key in trains) {
     if (key === form.train) {
       ticket.train = key;
-      ticket.price = trains[key] * ticket.distance;
+      ticket.price = +(trains[key] * ticket.distance).toFixed(2);
       return ticket;
     }
   }

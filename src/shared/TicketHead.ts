@@ -4,9 +4,9 @@ import styled from 'styled-components';
 const { light, ticketHead } = styleVars;
 
 export const TicketHeadBox = styled.ul`
-  grid-column: 1 / 5;
+  grid-column: 1 / 6;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 30px);
   margin-bottom: 15px;
 

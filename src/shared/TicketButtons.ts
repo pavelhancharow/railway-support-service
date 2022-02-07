@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { MyBtn } from './UI/MyButton';
 
 export const TicketButtonsBox = styled.div`
-  grid-column: 1 / 5;
+  grid-column: 1 / 6;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-items: center;
 
   & ${MyBtn} {
@@ -20,7 +20,7 @@ export const TicketButtonsBox = styled.div`
     }
 
     &:last-of-type {
-      grid-column: 4 / 5;
+      grid-column: 5 / 6;
       box-shadow: 1px 2px 2px rgb(0 0 0 / 50%);
     }
   }

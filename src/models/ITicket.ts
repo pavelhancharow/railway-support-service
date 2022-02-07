@@ -4,4 +4,5 @@ export interface ITicket {
   train: string;
   price: number;
   distance: number;
+  duration: string;
 }

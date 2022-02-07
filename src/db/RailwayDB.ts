@@ -12,11 +12,11 @@ export const RailwayDB = {
       to: [
         {
           city: 'moscow',
-          distance: 800,
+          distance: 713,
         },
         {
           city: 'berlin',
-          distance: 1100,
+          distance: 1108,
         },
       ],
     },
@@ -25,11 +25,11 @@ export const RailwayDB = {
       to: [
         {
           city: 'minsk',
-          distance: 800,
+          distance: 713,
         },
         {
           city: 'berlin',
-          distance: 1900,
+          distance: 1817,
         },
       ],
     },
@@ -38,11 +38,11 @@ export const RailwayDB = {
       to: [
         {
           city: 'minsk',
-          distance: 1100,
+          distance: 1108,
         },
         {
           city: 'moscow',
-          distance: 1900,
+          distance: 1817,
         },
       ],
     },

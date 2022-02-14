@@ -15,12 +15,12 @@ export const LoginBox = styled.form`
 
   label {
     position: relative;
+    padding-bottom: 20px;
 
     input {
       width: 100%;
       min-height: 30px;
       padding: 0 5px;
-      margin-bottom: 20px;
       border: 1px solid ${darkGrey};
       background-color: ${light};
       overflow: hidden;
@@ -36,6 +36,10 @@ export const LoginBox = styled.form`
       left: 5px;
       color: ${primary};
     }
+  }
+
+  b {
+    color: ${primary};
   }
 
   button {

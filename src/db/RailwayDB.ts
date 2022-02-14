@@ -1,5 +1,9 @@
 export const RailwayDB = {
-  administrator: false,
+  admin: {
+    isAdmin: false,
+    name: 'admin',
+    password: 'admin',
+  },
   trains: {
     passenger: 0.1,
     express: 0.2,

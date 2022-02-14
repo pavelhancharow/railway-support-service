@@ -5,9 +5,9 @@ import { routesTable } from 'src/entities/RoutesTable';
 import { trainsTable } from 'src/entities/TrainsTable';
 
 export async function initTables() {
-  const { routes, trains, directions, administrator } = RailwayDB;
+  const { routes, trains, directions, admin } = RailwayDB;
 
-  await adminTable.initTable(administrator);
+  await adminTable.initTable(admin);
   await trainsTable.initTable(trains);
   await routesTable.initTable(routes);
   await directionsTable.initTable(directions);

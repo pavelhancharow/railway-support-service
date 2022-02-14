@@ -18,7 +18,7 @@ export class RailwayDataBase extends Dexie {
       routes: '++id, &from, to',
       trains: '++id, &types',
       directions: '++id, &types',
-      admin: '++id, &administrator',
+      admin: '++id, isAdmin, &name, password',
     });
   }
 }

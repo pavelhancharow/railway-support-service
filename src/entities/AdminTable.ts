@@ -1,15 +1,12 @@
-import { IAdminType } from 'src/models/IRailway';
+import { IAdmin } from 'src/models/IRailway';
 import { IRailwayDataBase, RailwayDataBase } from '../db/RailwayDataBase';
 
-class AdminTable
-  extends RailwayDataBase
-  implements IRailwayDataBase<IAdminType>
-{
-  async initTable(db: IAdminType) {
+class AdminTable extends RailwayDataBase implements IRailwayDataBase<IAdmin> {
+  async initTable(db: IAdmin) {
     try {
       if ((await this.table('admin').toArray()).length) return;
 
-      await this.admin.add({ administrator: db });
+      await this.admin.add({ ...db });
 
       console.log('Admin db is created');
     } catch (error) {
@@ -17,8 +14,8 @@ class AdminTable
     }
   }
 
-  async put(value: boolean) {
-    await this.admin.put({ id: 1, administrator: value });
+  async updateIsAdmin(value: boolean) {
+    await this.admin.update(1, { isAdmin: value });
   }
 
   async get() {

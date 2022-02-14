@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAdminType } from 'src/models/IRailway';
+
 import {
   checkAdmin,
   getAdmin,
@@ -11,7 +11,7 @@ import {
 interface PageState {
   isModalLogin: boolean;
   isModalRoute: boolean;
-  isAdmin: IAdminType | null;
+  isAdmin: boolean;
   adminIsLoading: boolean;
   adminError: string;
 }
@@ -19,7 +19,7 @@ interface PageState {
 const initialState: PageState = {
   isModalLogin: false,
   isModalRoute: false,
-  isAdmin: null,
+  isAdmin: false,
   adminIsLoading: false,
   adminError: '',
 };
@@ -44,7 +44,7 @@ export const PageSlice = createSlice({
     [checkAdmin.pending.type]: (state) => {
       state.adminIsLoading = true;
     },
-    [checkAdmin.fulfilled.type]: (state, action: PayloadAction<IAdminType>) => {
+    [checkAdmin.fulfilled.type]: (state, action: PayloadAction<boolean>) => {
       state.adminIsLoading = false;
       state.adminError = '';
       state.isAdmin = action.payload;
@@ -56,7 +56,7 @@ export const PageSlice = createSlice({
     [getAdmin.pending.type]: (state) => {
       state.adminIsLoading = true;
     },
-    [getAdmin.fulfilled.type]: (state, action: PayloadAction<IAdminType>) => {
+    [getAdmin.fulfilled.type]: (state, action: PayloadAction<boolean>) => {
       state.adminIsLoading = false;
       state.adminError = '';
       state.isAdmin = action.payload;
@@ -68,7 +68,7 @@ export const PageSlice = createSlice({
     [logOut.pending.type]: (state) => {
       state.adminIsLoading = true;
     },
-    [logOut.fulfilled.type]: (state, action: PayloadAction<IAdminType>) => {
+    [logOut.fulfilled.type]: (state, action: PayloadAction<boolean>) => {
       state.adminIsLoading = false;
       state.adminError = '';
       state.isAdmin = action.payload;

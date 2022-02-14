@@ -29,9 +29,9 @@ export interface IRailway {
   routes?: IRoute[];
 }
 
-export type IAdminType = boolean;
-
 export interface IAdmin {
   id?: number;
-  administrator: IAdminType;
+  isAdmin: boolean;
+  name: string;
+  password: string;
 }

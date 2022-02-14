@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { ILogin } from 'src/models/IForms';
@@ -9,6 +9,7 @@ import {
 } from 'src/store/actionCreators/PageCreator';
 import { MyButton } from './UI/MyButton';
 import MyModal from './UI/MyModal';
+import { adminTable } from 'src/entities/AdminTable';
 
 export const Login: FC = (): JSX.Element => {
   const { isModalLogin, isAdmin } = useAppSelector(
@@ -16,14 +17,26 @@ export const Login: FC = (): JSX.Element => {
   );
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState, reset } = useForm<ILogin>();
-  const onSubmit = (data: ILogin) => {
-    dispatch(checkAdmin(data.login));
+  const [incorrect, setIncorrect] = useState<boolean>(false);
+  const { errors, isSubmitSuccessful } = formState;
+
+  const onSubmit = async (data: ILogin) => {
+    const response = await adminTable.get();
+
+    if (data.login === response?.name && data.password === response?.password) {
+      await dispatch(checkAdmin());
+    } else {
+      setIncorrect(true);
+    }
   };
 
   useEffect(() => {
-    if (formState.isSubmitSuccessful) reset({ login: '' });
-    if (isAdmin) dispatch(toggleModalLogin(false));
-  }, [dispatch, formState, isAdmin, reset]);
+    if (isSubmitSuccessful) reset({ login: '', password: '' });
+    if (isAdmin) {
+      setIncorrect(false);
+      dispatch(toggleModalLogin(false));
+    }
+  }, [dispatch, isSubmitSuccessful, isAdmin, reset]);
 
   return (
     <MyModal
@@ -41,8 +54,23 @@ export const Login: FC = (): JSX.Element => {
             placeholder="Enter your login"
             {...register('login', { required: true })}
           />
-          {formState.errors.login && <span>This field is required</span>}
+          {errors.login && <span>This field is required</span>}
         </label>
+        <label htmlFor="password">
+          <input
+            type="text"
+            placeholder="Enter your password"
+            {...register('password', {
+              required: 'This field is required',
+              minLength: {
+                value: 5,
+                message: 'Must be at least 5 characters',
+              },
+            })}
+          />
+          {errors.password && <span>{errors.password.message}</span>}
+        </label>
+        {incorrect && <b>Incorrect login or password</b>}
         <MyButton type="submit">LogIn</MyButton>
       </LoginBox>
     </MyModal>

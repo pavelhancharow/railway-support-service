@@ -22,6 +22,7 @@ export const MyModalBox = styled.div<IMyModalBox>`
   opacity: ${({ $display }) => ($display ? 1 : 0)};
 
   div {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 260px;
@@ -32,6 +33,13 @@ export const MyModalBox = styled.div<IMyModalBox>`
 
     &.show {
       transform: none;
+    }
+
+    picture {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
     }
   }
 `;

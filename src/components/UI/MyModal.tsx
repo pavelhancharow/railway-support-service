@@ -1,5 +1,6 @@
 import { FC, ReactNode, SyntheticEvent } from 'react';
 import { MyModalBox } from 'src/shared/UI/MyModal';
+import close from 'src/assets/svg/x-lg.svg';
 
 interface MyModalProps {
   children: ReactNode;
@@ -14,7 +15,12 @@ export const MyModal: FC<MyModalProps> = ({
 }): JSX.Element => {
   return (
     <MyModalBox $display={$display} onClick={handleClick}>
-      <div onClick={(e: SyntheticEvent) => e.stopPropagation()}>{children}</div>
+      <div onClick={(e: SyntheticEvent) => e.stopPropagation()}>
+        <picture onClick={handleClick}>
+          <img src={close} alt="close" />
+        </picture>
+        {children}
+      </div>
     </MyModalBox>
   );
 };

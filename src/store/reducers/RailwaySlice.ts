@@ -6,6 +6,7 @@ import {
   fetchRailway,
   getFormData,
   setDuration,
+  showDetails,
   toHomePage,
 } from '../actionCreators/RailwayCreator';
 
@@ -15,6 +16,7 @@ interface RailwayState {
   error: string;
   formTicket: boolean;
   ticket: ITicket;
+  isDetails: boolean;
 }
 
 const initialState: RailwayState = {
@@ -30,6 +32,7 @@ const initialState: RailwayState = {
     distance: NaN,
     duration: '',
   },
+  isDetails: false,
 };
 
 export const RailwaySlice = createSlice({
@@ -87,6 +90,9 @@ export const RailwaySlice = createSlice({
       action: PayloadAction<{ duration: string }>
     ) => {
       state.ticket = { ...state.ticket, ...action.payload };
+    },
+    [showDetails.fulfilled.type]: (state, action: PayloadAction<boolean>) => {
+      state.isDetails = action.payload;
     },
   },
 });

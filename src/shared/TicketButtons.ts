@@ -17,6 +17,15 @@ export const TicketButtonsBox = styled.div`
       align-items: center;
       justify-content: space-between;
       width: 120px;
+
+      & img {
+        transform: rotate(180deg);
+        transition: 0.3s;
+
+        &.show {
+          transform: rotate(0deg);
+        }
+      }
     }
 
     &:last-of-type {

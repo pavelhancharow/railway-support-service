@@ -105,3 +105,8 @@ export const toHomePage = createAsyncThunk(
       setTimeout(() => resolve(), 1000);
     })
 );
+
+export const showDetails = createAsyncThunk(
+  'showDetails',
+  (isShow: boolean) => isShow
+);

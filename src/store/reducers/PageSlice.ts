@@ -1,27 +1,34 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IUser } from 'src/models/IForms';
 
 import {
   checkAdmin,
   getAdmin,
   logOut,
+  setUser,
   toggleModalLogin,
+  toggleModalRegistration,
   toggleModalRoute,
 } from '../actionCreators/PageCreator';
 
 interface PageState {
   isModalLogin: boolean;
   isModalRoute: boolean;
+  isModalRegistration: boolean;
   isAdmin: boolean;
   adminIsLoading: boolean;
   adminError: string;
+  user: string;
 }
 
 const initialState: PageState = {
   isModalLogin: false,
   isModalRoute: false,
+  isModalRegistration: false,
   isAdmin: false,
   adminIsLoading: false,
   adminError: '',
+  user: '',
 };
 
 export const PageSlice = createSlice({
@@ -40,6 +47,12 @@ export const PageSlice = createSlice({
       action: PayloadAction<boolean>
     ) => {
       state.isModalRoute = action.payload;
+    },
+    [toggleModalRegistration.fulfilled.type]: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isModalRegistration = action.payload;
     },
     [checkAdmin.pending.type]: (state) => {
       state.adminIsLoading = true;
@@ -76,6 +89,9 @@ export const PageSlice = createSlice({
     [logOut.rejected.type]: (state, action: PayloadAction<string>) => {
       state.adminIsLoading = false;
       state.adminError = action.payload;
+    },
+    [setUser.fulfilled.type]: (state, action: PayloadAction<string>) => {
+      state.user = action.payload;
     },
   },
 });

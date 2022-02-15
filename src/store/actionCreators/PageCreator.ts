@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { adminTable } from 'src/entities/AdminTable';
+import { IUser } from 'src/models/IForms';
 
 export const toggleModalLogin = createAsyncThunk(
   'toggleModalLogin',
@@ -8,6 +9,11 @@ export const toggleModalLogin = createAsyncThunk(
 
 export const toggleModalRoute = createAsyncThunk(
   'toggleModalRoute',
+  (trigger: boolean) => trigger
+);
+
+export const toggleModalRegistration = createAsyncThunk(
+  'toggleModalRegistration',
   (trigger: boolean) => trigger
 );
 
@@ -53,3 +59,16 @@ export const getAdmin = createAsyncThunk('getAdmin', async (_, thunkAPI) => {
     );
   }
 });
+
+export const setUser = createAsyncThunk(
+  'setUser',
+  async (user: string, thunkAPI) => {
+    try {
+      return user;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        `User not found ${(error as Error).message}`
+      );
+    }
+  }
+);

@@ -8,7 +8,7 @@ import {
   toggleModalRoute,
 } from 'src/store/actionCreators/PageCreator';
 import { MyButton } from './UI/MyButton';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const Header: FC = (): JSX.Element => {
   const { isAdmin } = useAppSelector((state) => state.pageReducer);
@@ -36,8 +36,8 @@ export const Header: FC = (): JSX.Element => {
         <HeaderImg />
       </picture>
       <HeaderBtns>
-        {isAdmin && (
-          <MyButton handleClick={handleTriggerModalRoute}>Routes</MyButton>
+        {!isAdmin && (
+          <MyButton handleClick={() => navigate('/trips')}>Trips</MyButton>
         )}
         <MyButton handleClick={handleTriggerModalLogin}>
           {isAdmin ? 'LogOut' : 'LogIn'}

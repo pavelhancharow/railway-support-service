@@ -13,7 +13,9 @@ export const PublicRouter: FC = (): JSX.Element => {
             <Route path={r.path} element={r.element} key={r.path} />
           ))
         : publicRoutes
-            .filter((route) => route.path !== 'ticket')
+            .filter(
+              (route) => route.path !== 'ticket' && route.path !== 'success'
+            )
             .map((r) => (
               <Route path={r.path} element={r.element} key={r.path} />
             ))}

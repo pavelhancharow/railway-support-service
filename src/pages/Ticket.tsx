@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { TicketBox, TicketBody, TicketTable } from 'src/shared/Ticket';
-import { TicketButtons } from './TicketButtons';
-import { TicketDetails } from './TicketDetails';
-import { TicketInfo } from './TicketInfo';
-import { TicketHead } from './TicketHead';
+import { TicketButtons } from '../components/TicketButtons';
+import { TicketDetails } from '../components/TicketDetails';
+import { TicketInfo } from '../components/TicketInfo';
+import { TicketHead } from '../components/TicketHead';
 import { useAppSelector } from 'src/hooks/redux';
-import { Outlet } from 'react-router-dom';
+import { Registration } from '../components/Registration';
 
 export const Ticket: FC = (): JSX.Element => {
   const { isDetails } = useAppSelector((state) => state.railwayReducer);
@@ -20,7 +20,7 @@ export const Ticket: FC = (): JSX.Element => {
           {isDetails && <TicketDetails />}
         </TicketBody>
       </TicketTable>
-      <Outlet />
+      <Registration />
     </TicketBox>
   );
 };

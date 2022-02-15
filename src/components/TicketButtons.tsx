@@ -8,6 +8,7 @@ import {
   toHomePage,
 } from 'src/store/actionCreators/RailwayCreator';
 import { useNavigate } from 'react-router-dom';
+import { toggleModalRegistration } from 'src/store/actionCreators/PageCreator';
 
 export const TicketButtons: FC = (): JSX.Element => {
   const { isDetails } = useAppSelector((state) => state.railwayReducer);
@@ -19,6 +20,9 @@ export const TicketButtons: FC = (): JSX.Element => {
     navigate('/');
   };
 
+  const handleTriggerModalRegistration = () =>
+    dispatch(toggleModalRegistration(true));
+
   return (
     <TicketButtonsBox>
       <MyButton handleClick={() => dispatch(showDetails(!isDetails))}>
@@ -26,7 +30,7 @@ export const TicketButtons: FC = (): JSX.Element => {
         Details
       </MyButton>
       <MyButton handleClick={backHome}>Back To Home</MyButton>
-      <MyButton>Reserve</MyButton>
+      <MyButton handleClick={handleTriggerModalRegistration}>Reserve</MyButton>
     </TicketButtonsBox>
   );
 };

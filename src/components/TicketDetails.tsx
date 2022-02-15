@@ -4,7 +4,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { setDuration } from 'src/store/actionCreators/RailwayCreator';
 
-const containerStyle = { width: '400px', height: '400px' };
+const containerStyle = { width: '400px', height: '400px', marginRight: '30px' };
 const center = { lat: 53.893009, lng: 27.567444 };
 
 export const TicketDetails: FC = (): JSX.Element => {
@@ -53,6 +53,9 @@ export const TicketDetails: FC = (): JSX.Element => {
         mapTypeId={google.maps.MapTypeId.ROADMAP}
         onLoad={onLoad}
       />
+      <ul>
+        <li>Duration: {ticket.duration}</li>
+      </ul>
     </TicketDetailsBox>
   ) : (
     <TicketDetailsBox>Google Map is not available</TicketDetailsBox>

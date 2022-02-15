@@ -1,3 +1,5 @@
+import { ITicket } from './ITicket';
+
 export interface IForm {
   from: string;
   to: string;
@@ -7,6 +9,17 @@ export interface IForm {
 export interface ILogin {
   login: string;
   password: string;
+}
+
+export interface IRegistration {
+  login: string;
+  email: string;
+}
+
+export interface IUser {
+  login: string;
+  email: string;
+  trips: ITicket[];
 }
 
 export interface IAddRoute {

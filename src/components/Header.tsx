@@ -8,24 +8,36 @@ import {
   toggleModalRoute,
 } from 'src/store/actionCreators/PageCreator';
 import { MyButton } from './UI/MyButton';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Header: FC = (): JSX.Element => {
   const { isAdmin } = useAppSelector((state) => state.pageReducer);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleTriggerModalRoute = () => dispatch(toggleModalRoute(true));
-  const handleTriggerModalLogin = () => {
-    return isAdmin ? dispatch(logOut()) : dispatch(toggleModalLogin(!isAdmin));
+  const handleTriggerModalLogin = async () => {
+    if (isAdmin) {
+      await dispatch(logOut());
+      navigate('/');
+    } else {
+      await dispatch(toggleModalLogin(!isAdmin));
+    }
+  };
+
+  const backHome = async () => {
+    await dispatch(toHomePage());
+    navigate('/');
   };
 
   return (
     <HeaderBox>
-      <picture onClick={() => dispatch(toHomePage())}>
+      <picture onClick={backHome}>
         <HeaderImg />
       </picture>
       <HeaderBtns>
         {isAdmin && (
-          <MyButton handleClick={handleTriggerModalRoute}>Add Route</MyButton>
+          <MyButton handleClick={handleTriggerModalRoute}>Routes</MyButton>
         )}
         <MyButton handleClick={handleTriggerModalLogin}>
           {isAdmin ? 'LogOut' : 'LogIn'}

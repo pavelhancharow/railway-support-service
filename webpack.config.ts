@@ -1,17 +1,20 @@
 import path from 'path';
-import webpack, { Configuration } from 'webpack';
+import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
-const webpackConfig = (env: any): Configuration => ({
+const webpackConfig = (env: any) => ({
   entry: './src/index.tsx',
   ...(env.production || !env.development ? {} : { devtool: 'eval-source-map' }),
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     plugins: [new TsconfigPathsPlugin()],
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   output: {
     path: path.join(__dirname, '/dist'),

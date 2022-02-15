@@ -1,0 +1,22 @@
+import { FC } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useAppSelector } from 'src/hooks/redux';
+import { publicRoutes } from 'src/routes';
+
+export const PublicRouter: FC = (): JSX.Element => {
+  const { formTicket } = useAppSelector((state) => state.railwayReducer);
+
+  return (
+    <Routes>
+      {formTicket
+        ? publicRoutes.map((r) => (
+            <Route path={r.path} element={r.element} key={r.path} />
+          ))
+        : publicRoutes
+            .filter((route) => route.path !== 'ticket')
+            .map((r) => (
+              <Route path={r.path} element={r.element} key={r.path} />
+            ))}
+    </Routes>
+  );
+};

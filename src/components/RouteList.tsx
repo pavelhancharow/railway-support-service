@@ -8,7 +8,7 @@ import { toggleModalRoute } from 'src/store/actionCreators/PageCreator';
 import { MyButton } from './UI/MyButton';
 import MyModal from './UI/MyModal';
 
-export const Route: FC = (): JSX.Element => {
+export const RouteList: FC = (): JSX.Element => {
   const { isModalRoute } = useAppSelector((state) => state.pageReducer);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState, reset } = useForm<IAddRoute>();

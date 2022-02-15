@@ -4,18 +4,18 @@ import { styleVars } from '../styles/styleVars';
 
 const { grey, lightGrey } = styleVars;
 
-interface IMainInfoBox {
+interface IInfoBox {
   $shadow?: boolean;
 }
 
-export const MainInfoBox = styled.div<IMainInfoBox>`
+export const InfoBox = styled.div<IInfoBox>`
   position: relative;
   display: flex;
   width: 100%;
   box-shadow: ${({ $shadow }) => $shadow && '0px 4px 8px rgb(44 101 77 / 8%)'};
 `;
 
-export const MainInfoBild = styled.div`
+export const InfoBild = styled.div`
   width: 70%;
   height: 300px;
   background-image: url(${wallpaper});
@@ -25,7 +25,7 @@ export const MainInfoBild = styled.div`
   background-color: ${grey};
 `;
 
-export const MainInfoDescription = styled.div`
+export const InfoDescription = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,13 +34,13 @@ export const MainInfoDescription = styled.div`
   background-color: ${lightGrey};
 `;
 
-export const MainInfoQuote = styled.q`
+export const InfoQuote = styled.q`
   margin-bottom: 30px;
   font-size: 1.3rem;
   font-style: italic;
 `;
 
-export const MainInfoAuthor = styled.b`
+export const InfoAuthor = styled.b`
   align-self: flex-end;
   font-size: 1.3rem;
 `;

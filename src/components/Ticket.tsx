@@ -5,6 +5,7 @@ import { TicketDetails } from './TicketDetails';
 import { TicketInfo } from './TicketInfo';
 import { TicketHead } from './TicketHead';
 import { useAppSelector } from 'src/hooks/redux';
+import { Outlet } from 'react-router-dom';
 
 export const Ticket: FC = (): JSX.Element => {
   const { isDetails } = useAppSelector((state) => state.railwayReducer);
@@ -19,6 +20,7 @@ export const Ticket: FC = (): JSX.Element => {
           {isDetails && <TicketDetails />}
         </TicketBody>
       </TicketTable>
+      <Outlet />
     </TicketBox>
   );
 };

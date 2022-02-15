@@ -1,24 +1,27 @@
 import { FC } from 'react';
 import { FormBox, FormFieldset } from 'src/shared/Form';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { MyButton } from './UI/MyButton';
-import { FormDirection } from './FormDirection';
+import { MyButton } from '../components/UI/MyButton';
+import { FormDirection } from '../components/FormDirection';
 import { IForm } from 'src/models/IForms';
-import { FormTrains } from './FormTrains';
+import { FormTrains } from '../components/FormTrains';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { getFormData } from 'src/store/actionCreators/RailwayCreator';
+import { useNavigate } from 'react-router-dom';
 
 export const Form: FC = (): JSX.Element => {
   const { railway } = useAppSelector((state) => state.railwayReducer);
   const { register, handleSubmit, formState } = useForm<IForm>();
   const { directions, trains, routes } = railway;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IForm> = async (formData) => {
     if (routes && trains) {
       formData.from = formData.from.toLowerCase();
       formData.to = formData.to.toLowerCase();
       await dispatch(getFormData([formData, routes, trains]));
+      navigate('/ticket');
     }
   };
 

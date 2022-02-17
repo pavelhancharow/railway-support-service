@@ -1,32 +1,30 @@
-export interface IRoute {
-  id?: number;
-  from: string;
-  to: {
-    city: string;
-    distance: number;
-  }[];
+export interface IStation {
+  station_id: number;
+  station: string;
 }
 
-export interface ITrainTypes {
-  [key: string]: number;
+export interface IRoute {
+  train_id: number;
+  stations_id: number[];
 }
 
 export interface ITrain {
-  id?: number;
-  types: ITrainTypes;
+  train_type_id: number;
+  train_id: number;
+  train: string;
 }
 
-export type IDirectionType = string;
-
-export interface IDirection {
-  id?: number;
-  types: IDirectionType[];
+export interface ITrainType {
+  train_type_id: number;
+  train_type: string;
+  train_type_tariff: number;
 }
 
 export interface IRailway {
-  directions?: IDirectionType[];
-  trains?: ITrainTypes;
-  routes?: IRoute[];
+  stations: IStation[];
+  routes: IRoute[];
+  trains: ITrain[];
+  trainTypes: ITrainType[];
 }
 
 export interface IAdmin {

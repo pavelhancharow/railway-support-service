@@ -1,19 +1,15 @@
 import { FC } from 'react';
-import { UseFormRegister } from 'react-hook-form';
 import { useAppSelector } from 'src/hooks/redux';
-import { IForm } from 'src/models/IForms';
 import { TrainsBox } from 'src/shared/FormTrains';
 
-interface FormTrainsProps {
+interface IAdminRouteRange {
   value: string;
-  register: UseFormRegister<IForm>;
   checked: boolean;
   handleChange: (id: number) => void;
 }
 
-export const FormTrains: FC<FormTrainsProps> = ({
+export const AdminRouteRange: FC<IAdminRouteRange> = ({
   value,
-  register,
   checked,
   handleChange,
 }): JSX.Element => {
@@ -31,7 +27,6 @@ export const FormTrains: FC<FormTrainsProps> = ({
   return (
     <TrainsBox>
       <input
-        {...register('train')}
         type="radio"
         id={value}
         value={value}

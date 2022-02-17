@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { TicketButtonsBox } from 'src/shared/TicketButtons';
 import { MyButton } from './UI/MyButton';
 import chevron from '../assets/svg/chevron.svg';

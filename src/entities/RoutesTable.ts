@@ -1,40 +1,27 @@
+import { IRailwayDB, RailwayDB } from '../db/RailwayDB';
 import { IRoute } from 'src/models/IRailway';
-import { IRailwayDataBase, RailwayDataBase } from '../db/RailwayDataBase';
 
-class RoutesTable
-  extends RailwayDataBase
-  implements IRailwayDataBase<IRoute[]>
-{
+class RoutesTable extends RailwayDB implements IRailwayDB<IRoute[]> {
   async initTable(db: IRoute[]) {
     try {
       if ((await this.table('routes').toArray()).length) return;
 
       await this.routes.bulkAdd(db);
 
-      console.log('Routes db is created');
+      console.log('Routes Table created');
     } catch (error) {
       throw new Error(`Failed init table routes: ${error}`);
     }
   }
 
-  async get() {
-    return await this.routes.toArray();
+  async getRouteByTrainId(id: number) {
+    return await this.routes.get({ train_id: id });
   }
 
-  async post(cityA: string, cityB: string, distance: number) {
-    await this.routes.add({
-      from: cityA,
-      to: [{ city: cityB, distance: distance }],
-    });
-  }
-
-  async put(cityA: string, cityB: string, distance: number) {
-    await this.routes.where({ from: cityA }).modify((route) => {
-      const isCityB = route.to.find((item) => item.city === cityB);
-
-      if (!isCityB) return route.to.push({ city: cityB, distance: distance });
-
-      isCityB.distance = distance;
+  async updateRoutes(train_id: number, stations_id: number[]) {
+    return await this.routes.put({
+      train_id,
+      stations_id,
     });
   }
 }

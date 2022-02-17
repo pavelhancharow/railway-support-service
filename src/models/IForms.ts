@@ -27,3 +27,17 @@ export interface IAddRoute {
   to: string;
   distance: string;
 }
+
+export interface IFilter {
+  sort: number;
+  from: number;
+  to: number;
+}
+
+export interface IAdminRoute {
+  train: string;
+  sort: number;
+  from: number;
+  to: number;
+  stations: number[];
+}

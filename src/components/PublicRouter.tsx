@@ -4,11 +4,11 @@ import { useAppSelector } from 'src/hooks/redux';
 import { publicRoutes } from 'src/routes';
 
 export const PublicRouter: FC = (): JSX.Element => {
-  const { formTicket } = useAppSelector((state) => state.railwayReducer);
+  const { isTicketCreated } = useAppSelector((state) => state.railwayReducer);
 
   return (
     <Routes>
-      {formTicket
+      {isTicketCreated
         ? publicRoutes.map((r) => (
             <Route path={r.path} element={r.element} key={r.path} />
           ))

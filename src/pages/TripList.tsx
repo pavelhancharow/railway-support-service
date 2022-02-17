@@ -1,9 +1,9 @@
 import { FC, SyntheticEvent, useState } from 'react';
+import { TripHead } from 'src/components/TripHead';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { IUser } from 'src/models/IForms';
 import { TripListBox } from 'src/shared/TripList';
 import { setUser } from 'src/store/actionCreators/PageCreator';
-import { TicketHead } from '../components/TicketHead';
 import { TripItem } from '../components/TripItem';
 
 export const TripList: FC = (): JSX.Element => {
@@ -15,7 +15,7 @@ export const TripList: FC = (): JSX.Element => {
   if (!result) {
     return (
       <TripListBox>
-        <h2>You Have Any Trips</h2>
+        <h2>You Have Not Any Trips</h2>
         <input
           type="email"
           onChange={(e: SyntheticEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const TripList: FC = (): JSX.Element => {
   return (
     <TripListBox>
       <h2>Your Trips {userTrips.login}</h2>
-      <TicketHead />
+      <TripHead />
       <TripItem user={userTrips} />
     </TripListBox>
   );

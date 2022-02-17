@@ -3,7 +3,7 @@ import { useAppSelector } from 'src/hooks/redux';
 import { TicketInfoBox } from 'src/shared/TicketInfo';
 
 export const TicketInfo: FC = (): JSX.Element => {
-  const { from, to, distance, train, price, duration } = useAppSelector(
+  const { from, to, trainType, train, price, duration } = useAppSelector(
     (state) => state.railwayReducer.ticket
   );
 
@@ -11,9 +11,9 @@ export const TicketInfo: FC = (): JSX.Element => {
     <TicketInfoBox>
       <li>{from}</li>
       <li>{to}</li>
-      <li>{distance} km</li>
-      <li>{duration}</li>
       <li>{train}</li>
+      <li>{duration}</li>
+      <li>{trainType}</li>
       <li>{price} EUR</li>
     </TicketInfoBox>
   );

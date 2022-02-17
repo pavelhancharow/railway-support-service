@@ -1,20 +1,31 @@
-import { ITrainTypes } from 'src/models/IRailway';
-import { IRailwayDataBase, RailwayDataBase } from '../db/RailwayDataBase';
+import { IRailwayDB, RailwayDB } from '../db/RailwayDB';
+import { ITrain } from 'src/models/IRailway';
 
-class TrainsTable
-  extends RailwayDataBase
-  implements IRailwayDataBase<ITrainTypes>
-{
-  async initTable(db: ITrainTypes) {
+class TrainsTable extends RailwayDB implements IRailwayDB<ITrain[]> {
+  async initTable(db: ITrain[]) {
     try {
       if ((await this.table('trains').toArray()).length) return;
 
-      await this.trains.add({ types: db });
+      await this.trains.bulkAdd(db);
 
-      console.log('Trains db is created');
+      console.log('Trains Table created');
     } catch (error) {
       throw new Error(`Failed init table trains: ${error}`);
     }
+  }
+
+  async getTrainLastId() {
+    return await this.trains.orderBy('train_id').last();
+  }
+
+  async updateTrains(str: string, type_id: number) {
+    const trn = await this.trains.orderBy('train_id').last();
+
+    return await this.trains.put({
+      train_type_id: type_id,
+      train_id: trn ? trn.train_id + 1 : 1,
+      train: str,
+    });
   }
 }
 

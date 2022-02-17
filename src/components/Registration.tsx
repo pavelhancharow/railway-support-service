@@ -21,7 +21,7 @@ export const Registration: FC = (): JSX.Element => {
   const { errors, isSubmitSuccessful } = formState;
 
   const onSubmit = async (data: IRegistration) => {
-    const user = checkUser(data, railwayReducer.ticket);
+    checkUser(data, railwayReducer.ticket);
     await dispatch(setUser(data.email));
   };
 

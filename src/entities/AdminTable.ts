@@ -1,7 +1,7 @@
+import { IRailwayDB, RailwayDB } from '../db/RailwayDB';
 import { IAdmin } from 'src/models/IRailway';
-import { IRailwayDataBase, RailwayDataBase } from '../db/RailwayDataBase';
 
-class AdminTable extends RailwayDataBase implements IRailwayDataBase<IAdmin> {
+class AdminTable extends RailwayDB implements IRailwayDB<IAdmin> {
   async initTable(db: IAdmin) {
     try {
       if ((await this.table('admin').toArray()).length) return;

@@ -1,34 +1,66 @@
-import { IForm } from 'src/models/IForms';
-import { IRoute, ITrainTypes } from 'src/models/IRailway';
+import { routesTable } from 'src/entities/RoutesTable';
+import { stationsTable } from 'src/entities/StationsTable';
+import { trainTypesTable } from 'src/entities/TrainTypesTable';
+import { IFilter } from 'src/models/IForms';
+import { ITrain } from 'src/models/IRailway';
+import { ITicket } from 'src/models/ITicket';
 
-export function createTicket(res: [IForm, IRoute[], ITrainTypes]) {
-  const [form, routes, trains] = res;
+export async function createTicket(data: [ITrain, IFilter]) {
+  const [Train, Filter] = data;
+  const { train, train_id, train_type_id } = Train;
+  const { from, to } = Filter;
 
-  const ticket = {
+  let trigger = false;
+
+  const ticket: ITicket = {
+    train,
+    trainType: '',
+    tariff: NaN,
     from: '',
     to: '',
-    train: '',
+    stations: [] as string[],
     price: NaN,
-    distance: NaN,
-    duration: '-',
+    distance: '',
+    duration: '',
   };
 
-  const isFromCity = routes.find((route) => route.from === form.from);
+  const trainInfo = await trainTypesTable.getTrainType(train_type_id);
+  if (!trainInfo) return null;
+  ticket.trainType = trainInfo.train_type;
+  ticket.tariff = trainInfo.train_type_tariff;
 
-  if (!isFromCity) return null;
-  ticket.from = isFromCity.from[0].toUpperCase() + isFromCity.from.slice(1);
+  const fromStation = await stationsTable.getStation(from);
+  if (!fromStation) return null;
+  ticket.from = fromStation.station;
 
-  const isToCity = isFromCity.to.find((to) => to.city === form.to);
+  const toStation = await stationsTable.getStation(to);
+  if (!toStation) return null;
+  ticket.to = toStation.station;
 
-  if (!isToCity) return null;
-  ticket.to = isToCity.city[0].toUpperCase() + isToCity.city.slice(1);
-  ticket.distance = isToCity.distance;
+  const stations = await routesTable.getRouteByTrainId(train_id);
+  if (!stations) return null;
 
-  for (const key in trains) {
-    if (key === form.train) {
-      ticket.train = key;
-      ticket.price = +(trains[key] * ticket.distance).toFixed(2);
-      return ticket;
+  for (const station of stations.stations_id) {
+    if (station === to) {
+      trigger = false;
+      const res = await stationsTable.getStation(station);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      ticket.stations.push(res!.station);
+    }
+
+    if (trigger) {
+      const res = await stationsTable.getStation(station);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      ticket.stations.push(res!.station);
+    }
+
+    if (station === from) {
+      trigger = true;
+      const res = await stationsTable.getStation(station);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      ticket.stations.push(res!.station);
     }
   }
+
+  return ticket;
 }

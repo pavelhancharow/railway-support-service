@@ -1,26 +1,15 @@
 import { FC, useState } from 'react';
-import { FieldError, UseFormRegister } from 'react-hook-form';
 import { useAppSelector } from 'src/hooks/redux';
-import { IForm } from 'src/models/IForms';
 import { IStation } from 'src/models/IRailway';
 import { DirectionBox } from 'src/shared/FormDirection';
 
-interface FormDirectionProps {
+interface IAdminRouteDirection {
   direction: string;
-  registerDir: 'from' | 'to';
-  register: UseFormRegister<IForm>;
-  errors: {
-    from?: FieldError | undefined;
-    to?: FieldError | undefined;
-  };
   handleQuery: (id: number, value: string) => void;
 }
 
-export const FormDirection: FC<FormDirectionProps> = ({
+export const AdminRouteDirection: FC<IAdminRouteDirection> = ({
   direction,
-  registerDir,
-  register,
-  errors,
   handleQuery,
 }): JSX.Element => {
   const { stations } = useAppSelector((state) => state.railwayReducer.railway);
@@ -72,10 +61,8 @@ export const FormDirection: FC<FormDirectionProps> = ({
         type="text"
         id={direction}
         placeholder="Train station"
-        {...register(registerDir, { required: true })}
         onChange={(e) => onTextChanged(e.target.value)}
       />
-      {errors[`${registerDir}`] && <span>This field is required</span>}
       {renderSuggestions()}
     </DirectionBox>
   );

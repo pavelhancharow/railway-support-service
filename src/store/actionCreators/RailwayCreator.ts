@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { routesTable } from 'src/entities/RoutesTable';
-import { IAddRoute, IForm } from 'src/models/IForms';
-import { IRoute, ITrainTypes } from 'src/models/IRailway';
+import { stationsTable } from 'src/entities/StationsTable';
+import { IAdminRoute, IFilter } from 'src/models/IForms';
+import { IStation, ITrain } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';
+import { createNewRoute } from 'src/services/createNewRoute';
 import { createTicket } from 'src/services/createTicket';
 import { getRailwayDB } from 'src/services/getRailwayDB';
 import { initTables } from 'src/services/initTables';
-import { updateRoutes } from 'src/services/updateRoutes';
+import { updateStations } from 'src/services/updateRoutes';
 
 export const fetchRailway = createAsyncThunk(
   'fetchAll',
@@ -33,13 +34,13 @@ export const fetchRailway = createAsyncThunk(
   }
 );
 
-export const addToRailway = createAsyncThunk(
-  'addToRailway',
-  async (data: IAddRoute, thunkAPI) => {
+export const updateRailway = createAsyncThunk(
+  'updateRailway',
+  async (data: IAdminRoute, thunkAPI) => {
     try {
-      await updateRoutes(data);
+      await createNewRoute(data);
       const res = await new Promise((resolve) => {
-        setTimeout(() => resolve(routesTable.get()), 1000);
+        setTimeout(() => resolve(getRailwayDB()), 1000);
       });
       return res;
     } catch (error) {
@@ -48,7 +49,32 @@ export const addToRailway = createAsyncThunk(
           () =>
             reject(
               thunkAPI.rejectWithValue(
-                `Failed to add new route to railway db:
+                `Failed to load railway db: ${(error as Error).message}`
+              )
+            ),
+          1000
+        );
+      });
+    }
+  }
+);
+
+export const addNewStation = createAsyncThunk(
+  'addNewStation',
+  async (data: string, thunkAPI) => {
+    try {
+      await stationsTable.updateStations(data);
+
+      return await new Promise<IStation[]>((resolve) => {
+        setTimeout(() => resolve(updateStations()), 1000);
+      });
+    } catch (error) {
+      return await new Promise((_, reject) => {
+        setTimeout(
+          () =>
+            reject(
+              thunkAPI.rejectWithValue(
+                `Failed to add new station to railway db:
                 ${(error as Error).message}`
               )
             ),
@@ -61,9 +87,9 @@ export const addToRailway = createAsyncThunk(
 
 export const getFormData = createAsyncThunk(
   'getData',
-  async (res: [IForm, IRoute[], ITrainTypes], thunkAPI) => {
+  async (data: [ITrain, IFilter], thunkAPI) => {
     try {
-      const ticket = createTicket(res);
+      const ticket = await createTicket(data);
 
       if (!ticket) {
         throw new Error('Route not found');
@@ -82,11 +108,12 @@ export const getFormData = createAsyncThunk(
     }
   }
 );
-export const setDuration = createAsyncThunk(
-  'setDuration',
-  async (duration: string, thunkAPI) => {
+export const setDetailsToTicket = createAsyncThunk(
+  'setDetailsToTicket',
+  async (data: [string, string, number], thunkAPI) => {
     try {
-      return { duration };
+      const [duration, distance, price] = data;
+      return { duration, distance, price };
     } catch (error) {
       return await new Promise((_, reject) => {
         setTimeout(
@@ -109,4 +136,9 @@ export const toHomePage = createAsyncThunk(
 export const showDetails = createAsyncThunk(
   'showDetails',
   (isShow: boolean) => isShow
+);
+
+export const toggleModalSuccess = createAsyncThunk(
+  'toggleModalSuccess',
+  (trigger: boolean) => trigger
 );

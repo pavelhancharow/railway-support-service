@@ -1,10 +1,11 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 import { TicketDetailsBox } from 'src/shared/TicketDetails';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { setDuration } from 'src/store/actionCreators/RailwayCreator';
+import { setDetailsToTicket } from 'src/store/actionCreators/RailwayCreator';
+import { TicketDetailsInfo } from './TicketDetailsInfo';
 
-const containerStyle = { width: '400px', height: '400px', marginRight: '30px' };
+const containerStyle = { width: '400px', height: '400px' };
 const center = { lat: 53.893009, lng: 27.567444 };
 
 export const TicketDetails: FC = (): JSX.Element => {
@@ -15,34 +16,39 @@ export const TicketDetails: FC = (): JSX.Element => {
     language: 'EN',
   });
 
-  const onLoad = useCallback(
-    async function callback(map) {
-      const directionsService = new window.google.maps.DirectionsService();
-      const directionsDisplay = new window.google.maps.DirectionsRenderer();
+  const onLoad = useCallback(async function callback(map) {
+    const directionsService = new window.google.maps.DirectionsService();
+    const directionsDisplay = new window.google.maps.DirectionsRenderer();
 
-      directionsDisplay.setMap(map);
+    directionsDisplay.setMap(map);
 
-      const request = {
-        origin: ticket.from,
-        destination: ticket.to,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC,
-      };
+    const request = {
+      origin: ticket.from,
+      destination: ticket.to,
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+    };
 
-      await directionsService.route(request, (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
+    await directionsService.route(request, async (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK && result) {
+        const { duration, distance } = result.routes[0].legs[0];
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const num = parseInt(distance!.text.replace(/[^\d]/g, ''));
+        const price = +(ticket.tariff * num).toFixed(2);
+
+        await dispatch(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const duration = result!.routes[0].legs[0].duration!.text;
-          dispatch(setDuration(duration));
-          directionsDisplay.setDirections(result);
-        } else {
-          directionsDisplay.setDirections({ routes: [] });
-        }
-      });
-    },
+          setDetailsToTicket([duration!.text, distance!.text, price])
+        );
+        directionsDisplay.setDirections(result);
+      } else {
+        await dispatch(setDetailsToTicket(['-', '-', NaN]));
+        directionsDisplay.setDirections({ routes: [] });
+      }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ticket]
-  );
+  }, []);
 
   return isLoaded ? (
     <TicketDetailsBox>
@@ -53,9 +59,7 @@ export const TicketDetails: FC = (): JSX.Element => {
         mapTypeId={google.maps.MapTypeId.ROADMAP}
         onLoad={onLoad}
       />
-      <ul>
-        <li>Duration: {ticket.duration}</li>
-      </ul>
+      <TicketDetailsInfo />
     </TicketDetailsBox>
   ) : (
     <TicketDetailsBox>Google Map is not available</TicketDetailsBox>

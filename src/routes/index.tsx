@@ -3,10 +3,10 @@ import { Ticket } from 'src/pages/Ticket';
 import { TripList } from 'src/pages/TripList';
 import { Form } from 'src/pages/Form';
 import { Success } from 'src/pages/Success';
+import { Admin } from 'src/pages/Admin';
 
 export const privateRoutes = [
-  { path: 'admin', element: <Form /> },
-  { path: 'ticket', element: <Ticket /> },
+  { path: 'admin', element: <Admin /> },
   { path: '*', element: <Navigate to="/admin" /> },
 ];
 

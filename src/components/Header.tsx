@@ -2,11 +2,7 @@ import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { HeaderBox, HeaderBtns, HeaderImg } from 'src/shared/Header';
 import { toHomePage } from 'src/store/actionCreators/RailwayCreator';
-import {
-  logOut,
-  toggleModalLogin,
-  toggleModalRoute,
-} from 'src/store/actionCreators/PageCreator';
+import { logOut, toggleModalLogin } from 'src/store/actionCreators/PageCreator';
 import { MyButton } from './UI/MyButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +11,6 @@ export const Header: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleTriggerModalRoute = () => dispatch(toggleModalRoute(true));
   const handleTriggerModalLogin = async () => {
     if (isAdmin) {
       await dispatch(logOut());

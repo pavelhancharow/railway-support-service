@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { IUser } from 'src/models/IForms';
-import { TripListBody } from 'src/shared/TripList';
+import { TripItemBox, TripItemWrap } from 'src/shared/TripItem';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ITripItem {
@@ -11,17 +11,40 @@ export const TripItem: FC<ITripItem> = ({ user }): JSX.Element => {
   return (
     <>
       {user.trips.map((trip) => {
-        const { from, to, train, price, distance, duration } = trip;
+        const {
+          from,
+          to,
+          train,
+          price,
+          distance,
+          duration,
+          trainType,
+          stations,
+        } = trip;
 
         return (
-          <TripListBody key={uuidv4()}>
-            <li>{from}</li>
-            <li>{to}</li>
-            <li>{distance} km</li>
-            <li>{duration}</li>
+          <TripItemBox key={uuidv4()}>
+            <li>
+              <TripItemWrap>
+                <li>{from}</li>
+                <li>{to}</li>
+              </TripItemWrap>
+            </li>
             <li>{train}</li>
+            <li>{trainType}</li>
+            <li>
+              <TripItemWrap>
+                {stations
+                  .filter((_, i, arr) => i !== 0 && i !== arr.length - 1)
+                  .map((item) => (
+                    <li key={item}>- {item}</li>
+                  ))}
+              </TripItemWrap>
+            </li>
+            <li>{distance}</li>
+            <li>{duration}</li>
             <li>{price} EUR</li>
-          </TripListBody>
+          </TripItemBox>
         );
       })}
     </>

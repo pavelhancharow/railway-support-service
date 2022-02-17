@@ -9,10 +9,12 @@ import {
 } from 'src/shared/Info';
 
 export const Info: FC = (): JSX.Element => {
-  const { formTicket } = useAppSelector(({ railwayReducer }) => railwayReducer);
+  const { isTicketCreated } = useAppSelector(
+    ({ railwayReducer }) => railwayReducer
+  );
 
   return (
-    <InfoBox $shadow={formTicket || false}>
+    <InfoBox $shadow={isTicketCreated || false}>
       <InfoBild />
       <InfoDescription>
         <InfoQuote>

@@ -1,15 +1,13 @@
-import { directionsTable } from 'src/entities/DirectionsTable';
 import { routesTable } from 'src/entities/RoutesTable';
+import { stationsTable } from 'src/entities/StationsTable';
 import { trainsTable } from 'src/entities/TrainsTable';
+import { trainTypesTable } from 'src/entities/TrainTypesTable';
 
 export async function getRailwayDB() {
-  const trainsResponse = await trainsTable.trains.get(1);
-  const routesResponse = await routesTable.routes.toArray();
-  const directionsResponse = await directionsTable.directions.get(1);
+  const stations = await stationsTable.stations.toArray();
+  const routes = await routesTable.routes.toArray();
+  const trainTypes = await trainTypesTable.trainTypes.toArray();
+  const trains = await trainsTable.trains.toArray();
 
-  return {
-    directions: directionsResponse?.types,
-    routes: routesResponse,
-    trains: trainsResponse?.types,
-  };
+  return { stations, routes, trainTypes, trains };
 }

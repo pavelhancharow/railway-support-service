@@ -1,38 +1,54 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IRailway, IRoute } from 'src/models/IRailway';
+import { IRailway, IStation } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';
 import {
-  addToRailway,
+  addNewStation,
   fetchRailway,
   getFormData,
-  setDuration,
+  setDetailsToTicket,
   showDetails,
+  toggleModalSuccess,
   toHomePage,
+  updateRailway,
 } from '../actionCreators/RailwayCreator';
 
 interface RailwayState {
   railway: IRailway;
   isLoading: boolean;
   error: string;
-  formTicket: boolean;
+  directions: string[];
+  isTicketCreated: boolean;
   ticket: ITicket;
   isDetails: boolean;
+  isSuccessStation: boolean;
+  isSuccessRoute: boolean;
 }
 
 const initialState: RailwayState = {
-  railway: {},
+  railway: {
+    stations: [],
+    routes: [],
+    trains: [],
+    trainTypes: [],
+  },
   isLoading: false,
   error: '',
-  formTicket: false,
+  directions: ['from', 'to'],
+  isTicketCreated: false,
   ticket: {
+    train: '',
+    trainType: '',
+    tariff: NaN,
     from: '',
     to: '',
-    train: '',
+    stations: [],
     price: NaN,
-    distance: NaN,
+    distance: '',
     duration: '',
   },
-  isDetails: false,
+  isDetails: true,
+  isSuccessStation: false,
+  isSuccessRoute: false,
 };
 
 export const RailwaySlice = createSlice({
@@ -52,15 +68,35 @@ export const RailwaySlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    [addToRailway.pending.type]: (state) => {
+    [updateRailway.pending.type]: (state) => {
       state.isLoading = true;
     },
-    [addToRailway.fulfilled.type]: (state, action: PayloadAction<IRoute[]>) => {
+    [updateRailway.fulfilled.type]: (
+      state,
+      action: PayloadAction<IRailway>
+    ) => {
       state.isLoading = false;
       state.error = '';
-      state.railway.routes = action.payload;
+      state.isSuccessRoute = true;
+      state.railway = action.payload;
     },
-    [addToRailway.rejected.type]: (state, action: PayloadAction<string>) => {
+    [updateRailway.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [addNewStation.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [addNewStation.fulfilled.type]: (
+      state,
+      action: PayloadAction<IStation[]>
+    ) => {
+      state.isLoading = false;
+      state.error = '';
+      state.isSuccessStation = true;
+      state.railway.stations = action.payload;
+    },
+    [addNewStation.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -70,7 +106,7 @@ export const RailwaySlice = createSlice({
     [getFormData.fulfilled.type]: (state, action: PayloadAction<ITicket>) => {
       state.isLoading = false;
       state.error = '';
-      state.formTicket = true;
+      state.isTicketCreated = true;
       state.ticket = action.payload;
     },
     [getFormData.rejected.type]: (state, action: PayloadAction<string>) => {
@@ -82,17 +118,28 @@ export const RailwaySlice = createSlice({
     },
     [toHomePage.fulfilled.type]: (state) => {
       state.isLoading = false;
-      state.formTicket = false;
+      state.isTicketCreated = false;
       state.error = '';
     },
-    [setDuration.fulfilled.type]: (
+    [setDetailsToTicket.fulfilled.type]: (
       state,
-      action: PayloadAction<{ duration: string }>
+      action: PayloadAction<{
+        duration: string;
+        distance: string;
+        price: number;
+      }>
     ) => {
       state.ticket = { ...state.ticket, ...action.payload };
     },
     [showDetails.fulfilled.type]: (state, action: PayloadAction<boolean>) => {
       state.isDetails = action.payload;
+    },
+    [toggleModalSuccess.fulfilled.type]: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isSuccessStation = action.payload;
+      state.isSuccessRoute = action.payload;
     },
   },
 });

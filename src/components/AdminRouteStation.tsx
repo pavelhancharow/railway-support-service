@@ -1,27 +1,23 @@
 import { FC, useState } from 'react';
-import { FieldError, UseFormRegister } from 'react-hook-form';
 import { useAppSelector } from 'src/hooks/redux';
-import { IForm } from 'src/models/IForms';
 import { IStation } from 'src/models/IRailway';
+import {
+  AdminRouteFormBtnsBox,
+  AdminRouteFormStationBox,
+} from 'src/shared/AdminRouteForm';
 import { DirectionBox } from 'src/shared/FormDirection';
+import { MyButton } from './UI/MyButton';
 
-interface FormDirectionProps {
+interface IAdminRouteStation {
   direction: string;
-  registerDir: 'from' | 'to';
-  register: UseFormRegister<IForm>;
-  errors: {
-    from?: FieldError | undefined;
-    to?: FieldError | undefined;
-  };
-  handleQuery: (id: number, value: string) => void;
+  handleStation: (id: number, value: string) => void;
+  handleRemoveStation: () => void;
 }
 
-export const FormDirection: FC<FormDirectionProps> = ({
+export const AdminRouteStation: FC<IAdminRouteStation> = ({
   direction,
-  registerDir,
-  register,
-  errors,
-  handleQuery,
+  handleStation,
+  handleRemoveStation,
 }): JSX.Element => {
   const { stations } = useAppSelector((state) => state.railwayReducer.railway);
   const [text, setText] = useState('');
@@ -46,7 +42,7 @@ export const FormDirection: FC<FormDirectionProps> = ({
   const suggestionSelected = (value: IStation) => {
     setText(value.station);
     setSuggestions([]);
-    handleQuery(value.station_id, direction);
+    handleStation(value.station_id, value.station);
   };
 
   const renderSuggestions = () => {
@@ -63,20 +59,25 @@ export const FormDirection: FC<FormDirectionProps> = ({
     );
   };
 
+  const clearInput = () => setText('');
+
   return (
-    <DirectionBox>
-      <label htmlFor={direction}>{direction}</label>
-      <input
-        value={text}
-        autoComplete="off"
-        type="text"
-        id={direction}
-        placeholder="Train station"
-        {...register(registerDir, { required: true })}
-        onChange={(e) => onTextChanged(e.target.value)}
-      />
-      {errors[`${registerDir}`] && <span>This field is required</span>}
-      {renderSuggestions()}
-    </DirectionBox>
+    <AdminRouteFormStationBox>
+      <DirectionBox>
+        <label htmlFor={direction}>find</label>
+        <input
+          value={text}
+          type="text"
+          id={direction}
+          placeholder="Enter and choose sstation"
+          onChange={(e) => onTextChanged(e.target.value)}
+        />
+        {renderSuggestions()}
+      </DirectionBox>
+      <AdminRouteFormBtnsBox>
+        <MyButton handleClick={clearInput}>Clear Input</MyButton>
+        <MyButton handleClick={handleRemoveStation}>Remove Last</MyButton>
+      </AdminRouteFormBtnsBox>
+    </AdminRouteFormStationBox>
   );
 };

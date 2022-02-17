@@ -1,14 +1,14 @@
-import { RailwayDB } from 'src/db/RailwayDB';
+import { Admin, Routes, Stations, Trains, TrainTypes } from 'src/db/DB';
 import { adminTable } from 'src/entities/AdminTable';
-import { directionsTable } from 'src/entities/DirectionsTable';
 import { routesTable } from 'src/entities/RoutesTable';
+import { stationsTable } from 'src/entities/StationsTable';
 import { trainsTable } from 'src/entities/TrainsTable';
+import { trainTypesTable } from 'src/entities/TrainTypesTable';
 
 export async function initTables() {
-  const { routes, trains, directions, admin } = RailwayDB;
-
-  await adminTable.initTable(admin);
-  await trainsTable.initTable(trains);
-  await routesTable.initTable(routes);
-  await directionsTable.initTable(directions);
+  await adminTable.initTable(Admin);
+  await routesTable.initTable(Routes);
+  await stationsTable.initTable(Stations);
+  await trainsTable.initTable(Trains);
+  await trainTypesTable.initTable(TrainTypes);
 }

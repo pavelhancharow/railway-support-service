@@ -1,14 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { adminTable } from 'src/entities/AdminTable';
-import { IUser } from 'src/models/IForms';
 
 export const toggleModalLogin = createAsyncThunk(
   'toggleModalLogin',
-  (trigger: boolean) => trigger
-);
-
-export const toggleModalRoute = createAsyncThunk(
-  'toggleModalRoute',
   (trigger: boolean) => trigger
 );
 

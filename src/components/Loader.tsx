@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { styleVars } from 'src/styles/styleVars';
-import { MyLoader } from './UI/MyLoader';
+import { MyLoader } from './UI/MyLoader/MyLoader';
 
 const { primary } = styleVars;
 

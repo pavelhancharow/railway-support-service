@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
-import { Ticket } from 'src/pages/Ticket';
-import { TripList } from 'src/pages/TripList';
-import { Form } from 'src/pages/Form';
-import { Success } from 'src/pages/Success';
-import { Admin } from 'src/pages/Admin';
+import { Ticket } from 'src/pages/Ticket/Ticket';
+import { TripList } from 'src/pages/TripList/TripList';
+import { Form } from 'src/pages/Form/Form';
+import { Success } from 'src/pages/Success/Success';
+import { Admin } from 'src/pages/Admin/Admin';
 
 export const privateRoutes = [
   { path: 'admin', element: <Admin /> },

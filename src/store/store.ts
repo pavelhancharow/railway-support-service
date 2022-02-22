@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import railwayReducer from './reducers/RailwaySlice';
-import pageReducer from './reducers/PageSlice';
+import railwayReducer from './reducers/RailwaySlice/RailwaySlice';
+import pageReducer from './reducers/PageSlice/PageSlice';
 
 const rootReducer = combineReducers({
   railwayReducer,

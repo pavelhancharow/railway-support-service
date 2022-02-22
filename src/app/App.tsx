@@ -1,12 +1,12 @@
 import { FC, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Header } from 'src/components/Header';
-import { Info } from 'src/components/Info';
-import { Login } from 'src/components/Login';
-import { Main } from 'src/components/Main';
+import { Header } from 'src/components/Header/Header';
+import { Info } from 'src/components/Info/Info';
+import { Login } from 'src/components/Login/Login';
+import { Main } from 'src/components/Main/Main';
 import { useAppDispatch } from 'src/hooks/redux';
-import { fetchRailway } from 'src/store/actionCreators/RailwayCreator';
-import { getAdmin } from 'src/store/actionCreators/PageCreator';
+import { fetchRailway } from 'src/store/reducers/RailwaySlice/actionCreator';
+import { getAdmin } from 'src/store/reducers/PageSlice/actionCreator';
 
 export const App: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();

@@ -1,4 +1,4 @@
-import { IRailwayDB, RailwayDB } from '../db/RailwayDB';
+import { IRailwayDB, RailwayDB } from '../RailwayDB';
 import { IRoute } from 'src/models/IRailway';
 
 class RoutesTable extends RailwayDB implements IRailwayDB<IRoute[]> {

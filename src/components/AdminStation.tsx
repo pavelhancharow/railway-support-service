@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { stationsTable } from 'src/entities/StationsTable';
+import { stationsTable } from 'src/db/entities/StationsTable';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { AdminStationBox } from 'src/shared/AdminStation';
 import {

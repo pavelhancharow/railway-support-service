@@ -1,4 +1,4 @@
-import { stationsTable } from 'src/entities/StationsTable';
+import { stationsTable } from 'src/db/entities/StationsTable';
 
 export async function updateStations() {
   const stations = await stationsTable.stations.toArray();

@@ -9,7 +9,7 @@ import {
 } from 'src/store/actionCreators/PageCreator';
 import { MyButton } from './UI/MyButton';
 import MyModal from './UI/MyModal';
-import { adminTable } from 'src/entities/AdminTable';
+import { adminTable } from 'src/db/entities/AdminTable';
 
 export const Login: FC = (): JSX.Element => {
   const { isModalLogin, isAdmin } = useAppSelector(

@@ -1,6 +1,6 @@
-import { routesTable } from 'src/entities/RoutesTable';
-import { stationsTable } from 'src/entities/StationsTable';
-import { trainTypesTable } from 'src/entities/TrainTypesTable';
+import { routesTable } from 'src/db/entities/RoutesTable';
+import { stationsTable } from 'src/db/entities/StationsTable';
+import { trainTypesTable } from 'src/db/entities/TrainTypesTable';
 import { IFilter } from 'src/models/IForms';
 import { ITrain } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';

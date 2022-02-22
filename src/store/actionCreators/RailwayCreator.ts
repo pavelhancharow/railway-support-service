@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { stationsTable } from 'src/entities/StationsTable';
+import { stationsTable } from 'src/db/entities/StationsTable';
 import { IAdminRoute, IFilter } from 'src/models/IForms';
 import { ITrain } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';

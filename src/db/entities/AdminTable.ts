@@ -1,4 +1,4 @@
-import { IRailwayDB, RailwayDB } from '../db/RailwayDB';
+import { IRailwayDB, RailwayDB } from '../RailwayDB';
 import { IAdmin } from 'src/models/IRailway';
 
 class AdminTable extends RailwayDB implements IRailwayDB<IAdmin> {

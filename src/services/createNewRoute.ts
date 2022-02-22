@@ -1,5 +1,5 @@
-import { routesTable } from 'src/entities/RoutesTable';
-import { trainsTable } from 'src/entities/TrainsTable';
+import { routesTable } from 'src/db/entities/RoutesTable';
+import { trainsTable } from 'src/db/entities/TrainsTable';
 import { IAdminRoute } from 'src/models/IForms';
 
 export async function createNewRoute(data: IAdminRoute) {

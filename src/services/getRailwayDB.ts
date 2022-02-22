@@ -1,7 +1,7 @@
-import { routesTable } from 'src/entities/RoutesTable';
-import { stationsTable } from 'src/entities/StationsTable';
-import { trainsTable } from 'src/entities/TrainsTable';
-import { trainTypesTable } from 'src/entities/TrainTypesTable';
+import { routesTable } from 'src/db/entities/RoutesTable';
+import { stationsTable } from 'src/db/entities/StationsTable';
+import { trainsTable } from 'src/db/entities/TrainsTable';
+import { trainTypesTable } from 'src/db/entities/TrainTypesTable';
 import { IRailway } from 'src/models/IRailway';
 
 export async function getRailwayDB(): Promise<IRailway> {

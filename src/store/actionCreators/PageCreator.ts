@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { adminTable } from 'src/entities/AdminTable';
+import { adminTable } from 'src/db/entities/AdminTable';
 
 export const toggleModalLogin = createAsyncThunk(
   'toggleModalLogin',

@@ -1,7 +1,7 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { TripHead, TripItem } from 'src/components/TripList';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { IUser } from 'src/models/IForms';
+import { IUserForm } from 'src/models/IForms';
 import { TripListBox } from 'src/pages/TripList/TripListStyles';
 import { getUserFromLocalStorage } from 'src/services/getUserFromLocalStorage';
 import { setUser } from 'src/store/reducers/PageSlice/actionCreator';
@@ -29,7 +29,7 @@ export const TripList: FC = (): JSX.Element => {
     );
   }
 
-  const userTrips: IUser = JSON.parse(result);
+  const userTrips: IUserForm = JSON.parse(result);
 
   return (
     <TripListBox>

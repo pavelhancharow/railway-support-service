@@ -6,35 +6,35 @@ export interface IForm {
   train: string;
 }
 
-export interface ILogin {
+export interface ILoginForm {
   login: string;
   password: string;
 }
 
-export interface IRegistration {
+export interface IRegistrationForm {
   login: string;
   email: string;
 }
 
-export interface IUser {
+export interface IUserForm {
   login: string;
   email: string;
   trips: ITicket[];
 }
 
-export interface IAddRoute {
+export interface IAddRouteForm {
   from: string;
   to: string;
   distance: string;
 }
 
-export interface IFilter {
+export interface IFilterForm {
   sort: number;
   from: number;
   to: number;
 }
 
-export interface IAdminRoute {
+export interface IAdminRouteForm {
   train: string;
   sort: number;
   from: number;

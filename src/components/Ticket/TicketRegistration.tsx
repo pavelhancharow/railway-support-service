@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { IRegistration } from 'src/models/IForms';
+import { IRegistrationForm } from 'src/models/IForms';
 import { checkUser } from 'src/services/checkUser';
 import { LoginBox } from 'src/components/Login/LoginStyles';
 import {
@@ -14,13 +14,14 @@ import MyModal from '../UI/MyModal/MyModal';
 
 export const TicketRegistration: FC = (): JSX.Element => {
   const { pageReducer, railwayReducer } = useAppSelector((state) => state);
-  const { register, handleSubmit, formState, reset } = useForm<IRegistration>();
+  const { register, handleSubmit, formState, reset } =
+    useForm<IRegistrationForm>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isModalRegistration } = pageReducer;
   const { errors, isSubmitSuccessful } = formState;
 
-  const onSubmit = async (data: IRegistration) => {
+  const onSubmit = async (data: IRegistrationForm) => {
     checkUser(data, railwayReducer.ticket);
     await dispatch(setUser(data.email));
   };

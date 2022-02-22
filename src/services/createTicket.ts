@@ -1,11 +1,11 @@
 import { routesTable } from 'src/db/entities/RoutesTable';
 import { stationsTable } from 'src/db/entities/StationsTable';
 import { trainTypesTable } from 'src/db/entities/TrainTypesTable';
-import { IFilter } from 'src/models/IForms';
+import { IFilterForm } from 'src/models/IForms';
 import { ITrain } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';
 
-export async function createTicket(data: [ITrain, IFilter]) {
+export async function createTicket(data: [ITrain, IFilterForm]) {
   const [Train, Filter] = data;
   const { train, train_id, train_type_id } = Train;
   const { from, to } = Filter;

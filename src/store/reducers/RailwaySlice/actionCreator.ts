@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { stationsTable } from 'src/db/entities/StationsTable';
-import { IAdminRoute, IFilter } from 'src/models/IForms';
+import { IAdminRouteForm, IFilterForm } from 'src/models/IForms';
 import { ITrain } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';
 import { createNewRoute } from 'src/services/createNewRoute';
@@ -34,7 +34,7 @@ export const fetchRailway = createAsyncThunk(
 
 export const updateRailway = createAsyncThunk(
   'updateRailway',
-  async (data: IAdminRoute, thunkAPI) => {
+  async (data: IAdminRouteForm, thunkAPI) => {
     try {
       const res = await Promise.all([
         createNewRoute(data),
@@ -85,7 +85,7 @@ export const addNewStation = createAsyncThunk(
 
 export const getFormData = createAsyncThunk(
   'getData',
-  async (data: [ITrain, IFilter], thunkAPI) => {
+  async (data: [ITrain, IFilterForm], thunkAPI) => {
     try {
       const ticket = await createTicket(data);
 

@@ -1,6 +1,6 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { IAdminRoute } from 'src/models/IForms';
+import { IAdminRouteForm } from 'src/models/IForms';
 import {
   AdminRouteBox,
   AdminRouteForm,
@@ -23,7 +23,7 @@ export const AdminRoute: FC = (): JSX.Element => {
   );
   const { trainTypes } = railway;
   const dispatch = useAppDispatch();
-  const [filter, setFilter] = useState<IAdminRoute>({
+  const [filter, setFilter] = useState<IAdminRouteForm>({
     train: '',
     sort: 1,
     from: NaN,

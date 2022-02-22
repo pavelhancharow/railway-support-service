@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { ILogin } from 'src/models/IForms';
+import { ILoginForm } from 'src/models/IForms';
 import { LoginBox } from 'src/components/Login/LoginStyles';
 import {
   checkAdmin,
@@ -16,11 +16,11 @@ export const Login: FC = (): JSX.Element => {
     (state) => state.pageReducer
   );
   const dispatch = useAppDispatch();
-  const { register, handleSubmit, formState, reset } = useForm<ILogin>();
+  const { register, handleSubmit, formState, reset } = useForm<ILoginForm>();
   const [incorrect, setIncorrect] = useState<boolean>(false);
   const { errors, isSubmitSuccessful } = formState;
 
-  const onSubmit = async (data: ILogin) => {
+  const onSubmit = async (data: ILoginForm) => {
     const response = await adminTable.get();
 
     if (data.login === response?.name && data.password === response?.password) {

@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { IUser } from 'src/models/IForms';
+import { IUserForm } from 'src/models/IForms';
 import { TripItemBox, TripItemWrap } from './styles';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ITripItem {
-  user: IUser;
+  user: IUserForm;
 }
 
 export const TripItem: FC<ITripItem> = ({ user }): JSX.Element => {

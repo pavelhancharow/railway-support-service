@@ -1,7 +1,7 @@
-import { IFilter } from 'src/models/IForms';
+import { IFilterForm } from 'src/models/IForms';
 import { IRailway } from 'src/models/IRailway';
 
-export function findTrain(railway: IRailway, filter: IFilter) {
+export function findTrain(railway: IRailway, filter: IFilterForm) {
   const routes = railway.routes.filter((route) => {
     let acc = NaN;
 

@@ -3,7 +3,7 @@ import { FormBox, FormFieldset } from 'src/pages/Form/FormStyles';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MyButton } from '../../components/UI/MyButton/MyButton';
 import { FormDirection } from 'src/components/Form/FormDirection/FormDirection';
-import { IFilter, IForm } from 'src/models/IForms';
+import { IFilterForm, IForm } from 'src/models/IForms';
 import { FormTrains } from '../../components/Form/FormTrains/FormTrains';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { getFormData } from 'src/store/reducers/RailwaySlice/actionCreator';
@@ -15,7 +15,7 @@ export const Form: FC = (): JSX.Element => {
   const navigate = useNavigate();
   const { railway } = useAppSelector((state) => state.railwayReducer);
   const { register, handleSubmit, formState, reset } = useForm<IForm>();
-  const [filter, setFilter] = useState<IFilter>({
+  const [filter, setFilter] = useState<IFilterForm>({
     sort: 1,
     from: NaN,
     to: NaN,

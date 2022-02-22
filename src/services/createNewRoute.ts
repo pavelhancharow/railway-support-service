@@ -1,8 +1,8 @@
 import { routesTable } from 'src/db/entities/RoutesTable';
 import { trainsTable } from 'src/db/entities/TrainsTable';
-import { IAdminRoute } from 'src/models/IForms';
+import { IAdminRouteForm } from 'src/models/IForms';
 
-export async function createNewRoute(data: IAdminRoute) {
+export async function createNewRoute(data: IAdminRouteForm) {
   const { train, sort, stations, from, to } = data;
   await trainsTable.updateTrains(train, sort);
   const lastTrain = await trainsTable.getTrainLastId();

@@ -5,6 +5,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
 
 const webpackConfig = (env: any) => ({
   entry: './src/index.tsx',
@@ -59,6 +60,7 @@ const webpackConfig = (env: any) => ({
     ],
   },
   plugins: [
+    new Dotenv(),
     new HtmlWebpackPlugin({
       title: env.development ? 'Development' : 'Railway Support Service',
       template: './public/index.html',

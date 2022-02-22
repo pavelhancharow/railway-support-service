@@ -13,7 +13,8 @@ export const TicketDetails: FC = (): JSX.Element => {
   const { ticket } = useAppSelector((state) => state.railwayReducer);
   const dispatch = useAppDispatch();
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyBuJMyAuPqZATtIAnoPxOpQvgVcp6bzERc',
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    googleMapsApiKey: process.env.GOOGLE_KEY!,
     language: 'EN',
   });
 

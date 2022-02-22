@@ -1,6 +1,5 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { TicketBox, TicketBody, TicketTable } from './TicketStyles';
-import { useAppSelector } from 'src/hooks/redux';
 import {
   TicketButtons,
   TicketDetails,
@@ -8,9 +7,11 @@ import {
   TicketInfo,
   TicketRegistration,
 } from 'src/components/Ticket';
+import { TicketContext } from 'src/context/TicketContext';
 
 export const Ticket: FC = (): JSX.Element => {
-  const { isDetails } = useAppSelector((state) => state.railwayReducer);
+  const { isDetails } = useContext(TicketContext);
+
   return (
     <TicketBox>
       <h2>Ticket</h2>

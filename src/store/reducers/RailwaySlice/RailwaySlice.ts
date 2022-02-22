@@ -6,7 +6,6 @@ import {
   fetchRailway,
   getFormData,
   setDetailsToTicket,
-  showDetails,
   toggleModalSuccess,
   toHomePage,
   updateRailway,
@@ -18,7 +17,6 @@ interface RailwayState {
   error: string;
   isTicketCreated: boolean;
   ticket: ITicket;
-  isDetails: boolean;
   isSuccessStation: boolean;
   isSuccessRoute: boolean;
 }
@@ -44,7 +42,6 @@ const initialState: RailwayState = {
     distance: '',
     duration: '',
   },
-  isDetails: true,
   isSuccessStation: false,
   isSuccessRoute: false,
 };
@@ -128,9 +125,6 @@ export const RailwaySlice = createSlice({
       }>
     ) => {
       state.ticket = { ...state.ticket, ...action.payload };
-    },
-    [showDetails.fulfilled.type]: (state, action: PayloadAction<boolean>) => {
-      state.isDetails = action.payload;
     },
     [toggleModalSuccess.fulfilled.type]: (
       state,

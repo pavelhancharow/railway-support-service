@@ -1,18 +1,16 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { TicketButtonsBox } from './TicketButtonsStyles';
 import { MyButton } from '../../UI/MyButton/MyButton';
 import chevron from 'src/assets/svg/chevron.svg';
-import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import {
-  showDetails,
-  toHomePage,
-} from 'src/store/reducers/RailwaySlice/actionCreator';
+import { useAppDispatch } from 'src/hooks/redux';
+import { toHomePage } from 'src/store/reducers/RailwaySlice/actionCreator';
 import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line max-len
 import { toggleModalRegistration } from 'src/store/reducers/PageSlice/actionCreator';
+import { TicketContext } from 'src/context/TicketContext';
 
 export const TicketButtons: FC = (): JSX.Element => {
-  const { isDetails } = useAppSelector((state) => state.railwayReducer);
+  const { isDetails, toggleDetails } = useContext(TicketContext);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +24,7 @@ export const TicketButtons: FC = (): JSX.Element => {
 
   return (
     <TicketButtonsBox>
-      <MyButton handleClick={() => dispatch(showDetails(!isDetails))}>
+      <MyButton handleClick={() => toggleDetails()}>
         <img className={isDetails ? 'show' : ''} src={chevron} alt="chevron" />
         Details
       </MyButton>

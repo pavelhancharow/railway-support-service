@@ -127,11 +127,6 @@ export const setDetailsToTicket = createAsyncThunk(
 
 export const toHomePage = createAsyncThunk('toHome', async () => await delay());
 
-export const showDetails = createAsyncThunk(
-  'showDetails',
-  (isShow: boolean) => isShow
-);
-
 export const toggleModalSuccess = createAsyncThunk(
   'toggleModalSuccess',
   (trigger: boolean) => trigger

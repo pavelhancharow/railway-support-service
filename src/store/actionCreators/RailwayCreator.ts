@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { stationsTable } from 'src/entities/StationsTable';
 import { IAdminRoute, IFilter } from 'src/models/IForms';
-import { IStation, ITrain } from 'src/models/IRailway';
+import { ITrain } from 'src/models/IRailway';
 import { ITicket } from 'src/models/ITicket';
 import { createNewRoute } from 'src/services/createNewRoute';
 import { createTicket } from 'src/services/createTicket';
+import { delay } from 'src/services/delay';
 import { getRailwayDB } from 'src/services/getRailwayDB';
 import { initTables } from 'src/services/initTables';
 import { updateStations } from 'src/services/updateRoutes';
@@ -13,11 +14,8 @@ export const fetchRailway = createAsyncThunk(
   'fetchAll',
   async (_, thunkAPI) => {
     try {
-      await initTables();
-      const res = await new Promise((resolve) => {
-        setTimeout(() => resolve(getRailwayDB()), 1000);
-      });
-      return res;
+      const res = await Promise.all([initTables(), delay(getRailwayDB)]);
+      return res[1];
     } catch (error) {
       return await new Promise((_, reject) => {
         setTimeout(
@@ -38,11 +36,11 @@ export const updateRailway = createAsyncThunk(
   'updateRailway',
   async (data: IAdminRoute, thunkAPI) => {
     try {
-      await createNewRoute(data);
-      const res = await new Promise((resolve) => {
-        setTimeout(() => resolve(getRailwayDB()), 1000);
-      });
-      return res;
+      const res = await Promise.all([
+        createNewRoute(data),
+        delay(getRailwayDB),
+      ]);
+      return res[1];
     } catch (error) {
       return await new Promise((_, reject) => {
         setTimeout(
@@ -63,11 +61,11 @@ export const addNewStation = createAsyncThunk(
   'addNewStation',
   async (data: string, thunkAPI) => {
     try {
-      await stationsTable.updateStations(data);
-
-      return await new Promise<IStation[]>((resolve) => {
-        setTimeout(() => resolve(updateStations()), 1000);
-      });
+      const res = await Promise.all([
+        stationsTable.updateStations(data),
+        delay(updateStations),
+      ]);
+      return res[1];
     } catch (error) {
       return await new Promise((_, reject) => {
         setTimeout(
@@ -91,13 +89,9 @@ export const getFormData = createAsyncThunk(
     try {
       const ticket = await createTicket(data);
 
-      if (!ticket) {
-        throw new Error('Route not found');
-      }
+      if (!ticket) throw new Error('Route not found');
 
-      return await new Promise<ITicket>((resolve) => {
-        setTimeout(() => resolve(ticket), 1000);
-      });
+      return await delay(ticket);
     } catch (error) {
       return await new Promise<ITicket>((_, reject) => {
         setTimeout(
@@ -125,13 +119,7 @@ export const setDetailsToTicket = createAsyncThunk(
   }
 );
 
-export const toHomePage = createAsyncThunk(
-  'toHome',
-  async () =>
-    await new Promise<void>((resolve) => {
-      setTimeout(() => resolve(), 1000);
-    })
-);
+export const toHomePage = createAsyncThunk('toHome', async () => await delay());
 
 export const showDetails = createAsyncThunk(
   'showDetails',

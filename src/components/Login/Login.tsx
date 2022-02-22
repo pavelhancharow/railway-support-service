@@ -58,7 +58,7 @@ export const Login: FC = (): JSX.Element => {
         </label>
         <label htmlFor="password">
           <input
-            type="text"
+            type="password"
             placeholder="Enter your password"
             {...register('password', {
               required: 'This field is required',

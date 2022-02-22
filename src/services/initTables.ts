@@ -1,4 +1,4 @@
-import { Admin, Routes, Stations, Trains, TrainTypes } from 'src/db/DB';
+import { Admin, Routes, Stations, Trains, TrainTypes } from 'src/db/dbSeed';
 import { adminTable } from 'src/entities/AdminTable';
 import { routesTable } from 'src/entities/RoutesTable';
 import { stationsTable } from 'src/entities/StationsTable';

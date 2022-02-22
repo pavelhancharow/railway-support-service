@@ -32,20 +32,26 @@ export const TicketDetails: FC = (): JSX.Element => {
     };
 
     await directionsService.route(request, async (result, status) => {
+      const res = {
+        duration: '-',
+        distance: '-',
+        price: NaN,
+      };
+
       if (status === google.maps.DirectionsStatus.OK && result) {
         const { duration, distance } = result.routes[0].legs[0];
-
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const num = parseInt(distance!.text.replace(/[^\d]/g, ''));
-        const price = +(ticket.tariff * num).toFixed(2);
+        res.duration = duration!.text;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        res.distance = distance!.text;
 
-        await dispatch(
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          setDetailsToTicket([duration!.text, distance!.text, price])
-        );
+        const num = parseInt(res.distance.replace(/[^\d]/g, ''));
+        res.price = +(ticket.tariff * num).toFixed(2);
+
+        await dispatch(setDetailsToTicket(res));
         directionsDisplay.setDirections(result);
       } else {
-        await dispatch(setDetailsToTicket(['-', '-', NaN]));
+        await dispatch(setDetailsToTicket(res));
         directionsDisplay.setDirections({ routes: [] });
       }
     });

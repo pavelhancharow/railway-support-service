@@ -102,12 +102,18 @@ export const getFormData = createAsyncThunk(
     }
   }
 );
+
+interface IData {
+  duration: string;
+  distance: string;
+  price: number;
+}
+
 export const setDetailsToTicket = createAsyncThunk(
   'setDetailsToTicket',
-  async (data: [string, string, number], thunkAPI) => {
+  async (data: IData, thunkAPI) => {
     try {
-      const [duration, distance, price] = data;
-      return { duration, distance, price };
+      return data;
     } catch (error) {
       return await new Promise((_, reject) => {
         setTimeout(

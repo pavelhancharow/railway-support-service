@@ -8,7 +8,6 @@ import {
   AdminRoutesListBtns,
   AdminRoutesListWrap,
 } from 'src/components/Admin/AdminRoutesList/AdminRoutesListStyles';
-import { v4 as uuidv4 } from 'uuid';
 import { MyButton } from 'src/components/UI/MyButton/MyButton';
 
 export const AdminRoutesList: FC = (): JSX.Element => {
@@ -23,7 +22,7 @@ export const AdminRoutesList: FC = (): JSX.Element => {
     const { train, train_id } = resultTrain;
 
     return (
-      <AdminRoutesListWrap key={uuidv4()}>
+      <AdminRoutesListWrap key={train_id}>
         <ul>
           <li data-train_id={train_id}>
             <b>Train Route:</b> {train}

@@ -18,7 +18,7 @@ import { AdminRouteStation } from './AdminRouteStation';
 import { AdminSuccessModal } from '../AdminSuccessModal';
 
 export const AdminRoute: FC = (): JSX.Element => {
-  const { isSuccessRoute, railway, directions } = useAppSelector(
+  const { isSuccessRoute, railway } = useAppSelector(
     (state) => state.railwayReducer
   );
   const { trainTypes } = railway;
@@ -31,6 +31,7 @@ export const AdminRoute: FC = (): JSX.Element => {
     stations: [],
   });
   const [choosedStations, setChoosedStations] = useState<string[]>([]);
+  const directions = ['from', 'to'];
 
   const handleSort = (id: number) => setFilter({ ...filter, sort: id });
   const handleTrain = (text: string) => setFilter({ ...filter, train: text });
@@ -54,12 +55,9 @@ export const AdminRoute: FC = (): JSX.Element => {
       return { ...filter, stations: [...array] };
     });
 
-    setChoosedStations((state) => {
-      const newState = state;
-      const array = newState.filter((_, i, arr) => i !== arr.length - 1);
-
-      return [...array];
-    });
+    setChoosedStations((state) =>
+      state.filter((_, i, arr) => i !== arr.length - 1)
+    );
   };
 
   const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {

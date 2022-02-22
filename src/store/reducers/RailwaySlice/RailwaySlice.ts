@@ -16,7 +16,6 @@ interface RailwayState {
   railway: IRailway;
   isLoading: boolean;
   error: string;
-  directions: string[];
   isTicketCreated: boolean;
   ticket: ITicket;
   isDetails: boolean;
@@ -33,7 +32,6 @@ const initialState: RailwayState = {
   },
   isLoading: false,
   error: '',
-  directions: ['from', 'to'],
   isTicketCreated: false,
   ticket: {
     train: '',

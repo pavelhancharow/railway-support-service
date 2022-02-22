@@ -3,13 +3,14 @@ import { TripHead, TripItem } from 'src/components/TripList';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { IUser } from 'src/models/IForms';
 import { TripListBox } from 'src/pages/TripList/TripListStyles';
+import { getUserFromLocalStorage } from 'src/services/getUserFromLocalStorage';
 import { setUser } from 'src/store/reducers/PageSlice/actionCreator';
 
 export const TripList: FC = (): JSX.Element => {
   const [notFound, setNotFound] = useState(false);
   const { user } = useAppSelector((state) => state.pageReducer);
   const dispatch = useAppDispatch();
-  const result = localStorage.getItem(user);
+  const result = getUserFromLocalStorage(user);
 
   if (!result) {
     return (

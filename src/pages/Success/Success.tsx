@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { MyButton } from 'src/components/UI/MyButton/MyButton';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { TripListBox } from 'src/pages/TripList/TripListStyles';
+import { getUserFromLocalStorage } from 'src/services/getUserFromLocalStorage';
 import { toHomePage } from 'src/store/reducers/RailwaySlice/actionCreator';
 
 export const Success: FC = (): JSX.Element => {
@@ -10,7 +11,7 @@ export const Success: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const result = localStorage.getItem(user);
+  const result = getUserFromLocalStorage(user);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const userTrips = JSON.parse(result!);
   const { login, email } = userTrips;
